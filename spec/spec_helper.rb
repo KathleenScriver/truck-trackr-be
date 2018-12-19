@@ -20,6 +20,8 @@ require 'bundler'
 Bundler.require(:default, :test)
 require File.expand_path('../../config/environment.rb', __FILE__)
 # ------------------------------------
+require 'simplecov'
+SimpleCov.start 'rails'
 
 DatabaseCleaner.strategy = :truncation
 
