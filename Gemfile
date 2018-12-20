@@ -38,6 +38,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'simplecov'
 end
 
 group :development do
