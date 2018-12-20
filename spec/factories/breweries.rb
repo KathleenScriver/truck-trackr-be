@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :brewery do
-    name { "MyString" }
-    address { "MyString" }
-    contact_name { "MyString" }
-    phone { "MyString" }
-    email { "MyString" }
-    website { "MyString" }
+    name { Faker::Company.name }
+    address { Faker::Address.full_address }
+    contact_name { Faker::Name.name }
+    phone { Faker::PhoneNumber.phone_number }
+    email { Faker::Internet.email }
+    website { Faker::Internet.url }
   end
 end
