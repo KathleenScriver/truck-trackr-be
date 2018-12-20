@@ -3,6 +3,24 @@
 [![CircleCI](https://circleci.com/gh/KathleenYruegas/truck-trackr-be.svg?style=svg)](https://circleci.com/gh/KathleenYruegas/truck-trackr-be)
 
 Visit deployed api at https://truck-trackr-api.herokuapp.com/
+(This is also the base URL for all api endpoints.)
+
+#### API Endpoints
+
+**GET `/api/v1/food-trucks`**
+
+- This endpoint will return a list of all food-trucks along with all their attributes.
+```json
+[
+  {
+    "data": {
+      "attributes": {
+
+      }
+    }
+  }
+]
+```
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
