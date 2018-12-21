@@ -7,13 +7,14 @@ describe("Brewery API") do
 
       get '/api/v1/breweries'
 
-      brewery_data = JSON.parse(response.body, symbolize_headers: true)
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
       expect(brewery_data[:data].count).to eq(8)
-      expect(brewery_data[:data]).to have_key(:id)
-      expect(brewery_data[:data]).to have_key(:attributes)
-      expect(brewery_data[:data][:attributes]).to have_key(:name)
+      expect(brewery_data[:data][0]).to have_key(:id)
+      expect(brewery_data[:data][0]).to have_key(:attributes)
+      expect(brewery_data[:data][0][:attributes]).to have_key(:name)
     end
   end
 end
