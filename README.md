@@ -9,7 +9,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 
 **GET `/api/v1/food-trucks`**
 
-- This endpoint will return a list of all food-trucks along with all their attributes.
+- This endpoint will return a list of all food-trucks in the database along with their name.
 ```json
 [
   {
@@ -41,6 +41,30 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
     ]
   }
 ]
+```
+
+**GET `/api/v1/breweries`**
+- Will return a list of all breweries in the database along with their name.
+
+```json
+{
+    "data": [
+              {
+                "id": "1",
+                "type": "brewery_index",
+                "attributes": {
+                    "name": "Lockman Inc"
+                }
+              },
+              {
+                "id": "2",
+                "type": "brewery_index",
+                "attributes": {
+                    "name": "Cremin, Nikolaus and Volkman"
+                }
+              }
+            ]
+}
 ```
 
 This README would normally document whatever steps are necessary to get the
