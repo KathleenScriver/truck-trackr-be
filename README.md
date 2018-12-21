@@ -7,7 +7,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 
 #### API Endpoints
 
-**GET `/api/v1/food-trucks`**
+**GET `/api/v1/food_trucks`**
 
 - This endpoint will return a list of all food-trucks in the database along with their name.
 ```json

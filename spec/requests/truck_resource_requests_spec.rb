@@ -6,7 +6,7 @@ describe 'GET food trucks index end point' do
 
         create_list(:truck_city, 5, food_truck_id: truck_1.id)
 
-        get '/api/v1/food-trucks'
+        get '/api/v1/food_trucks'
 
         expect(response).to be_successful
 

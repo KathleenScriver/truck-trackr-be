@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
-      get '/food-trucks', to: 'food_trucks#index' 
+      resources :food_trucks, only: [:index]
       resources :breweries, only: [:index]
     end
   end
