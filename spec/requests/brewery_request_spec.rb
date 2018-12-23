@@ -44,5 +44,14 @@ describe("Brewery API") do
       expect(brewery_data[:data][:attributes]).to have_key(:email)
       expect(brewery_data[:data][:attributes][:email]).to eq(brewery.email)
     end
+    it("returns a 404 if brewery does not exist") do
+
+      get "/api/v1/breweries/100"
+
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(404)
+      expect(brewery_data).to have_key(:message)
+      expect(brewery_data[:message]).to eq("Brewery not found with that ID")
+    end
   end
 end
