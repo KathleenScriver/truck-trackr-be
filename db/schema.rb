@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_23_230158) do
+ActiveRecord::Schema.define(version: 2018_12_25_191601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2018_12_23_230158) do
     t.string "name"
     t.string "food_type"
     t.string "contact_name"
-    t.string "phone_number"
+    t.string "phone"
     t.string "email"
     t.string "logo_image"
     t.datetime "created_at", null: false
