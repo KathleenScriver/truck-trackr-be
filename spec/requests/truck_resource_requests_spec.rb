@@ -80,4 +80,56 @@ describe "Food Truck API" do
         expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
     end
   end    
+  describe 'POST food truck show end point' do
+    it 'user can get post new truck with required attributes' do
+        payload = {
+          name: "Hell On Wheels", 
+          food_type: "Barbecue", 
+          contact_name: "Sultan Charles", 
+          phone: "666-666-6666", 
+          email: "hellonwheelss666@hotmail.com"
+        }
+
+        post "/api/v1/food_trucks", params: payload
+
+        expect(response).to be_successful
+
+        trucks_response = JSON.parse(response.body)
+        
+        expect(trucks_response).to be_a(Hash)
+        expect(trucks_response).to have_key('data')
+        expect(trucks_response['data'].length).to eq(4)
+        expect(trucks_response['data']).to be_a(Hash)
+        expect(trucks_response['data']).to have_key('type')
+        expect(trucks_response['data']['type']).to eq('food_truck')
+        expect(trucks_response['data']).to have_key('id')
+        expect(trucks_response['data']['id']).to_not eq(nil)
+        expect(trucks_response['data']).to have_key('attributes')
+        expect(trucks_response['data']['attributes']).to have_key('name')
+        expect(trucks_response['data']['attributes']['name']).to eq(payload[:name])
+        expect(trucks_response['data']['attributes']).to have_key('food_type')
+        expect(trucks_response['data']['attributes']['food_type']).to eq(payload[:food_type])
+        expect(trucks_response['data']['attributes']).to have_key('contact_name')
+        expect(trucks_response['data']['attributes']['contact_name']).to eq(payload[:contact_name])
+        expect(trucks_response['data']['attributes']).to have_key('phone')
+        expect(trucks_response['data']['attributes']['phone']).to eq(payload[:phone])
+        expect(trucks_response['data']['attributes']).to have_key('email')
+        expect(trucks_response['data']['attributes']['email']).to eq(payload[:email])
+    end
+    it "returns a 400 if payload does not have all required parameters" do
+      payload = {
+        food_type: "Barbecue", 
+        contact_name: "Sultan Charles", 
+        phone: "666-666-6666", 
+        email: "hellonwheelss666@hotmail.com"
+      }
+        post "/api/v1/food_trucks"
+  
+        food_truck_data = JSON.parse(response.body)
+
+        expect(response.status).to eq(400)
+        expect(food_truck_data).to have_key("message")
+        expect(food_truck_data["message"]).to eq("Failed")
+    end
+  end    
 end
