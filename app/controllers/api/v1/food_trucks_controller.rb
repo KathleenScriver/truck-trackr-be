@@ -12,4 +12,18 @@ class Api::V1::FoodTrucksController < ApplicationController
       render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
     end
   end
+
+  def create
+    food_truck = FoodTruck.new(food_truck_params)
+    if food_truck.save
+      render json: FoodTruckShowSerializer.new(food_truck).serialized_json
+    else
+      render json: {message: "Failed"}, status: 400
+    end
+  end
+
+  private
+    def food_truck_params
+      params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website)
+    end
 end
