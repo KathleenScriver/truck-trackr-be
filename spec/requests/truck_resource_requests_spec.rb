@@ -70,5 +70,14 @@ describe "Food Truck API" do
         expect(trucks_response['data']['relationships']['cities']['data'][0]).to have_key('type')
         expect(trucks_response['data']['relationships']['cities']['data'][0]['type']).to eq('city')
     end
+    it "returns a 404 if food_truck does not exist" do
+
+        get "/api/v1/food_trucks/10000"
+  
+        food_truck_data = JSON.parse(response.body)
+        expect(response.status).to eq(404)
+        expect(food_truck_data).to have_key("message")
+        expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
+    end
   end    
 end
