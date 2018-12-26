@@ -9,6 +9,7 @@ RSpec.describe FoodTruck, type: :model do
     it { should validate_presence_of(:email) }
   end
   describe "relationships" do
-    it { should have_many(:truck_cities) }
+    it { should have_many(:food_truck_cities) }
+    it { should have_many(:cities).through(:food_truck_cities) }
   end
 end
