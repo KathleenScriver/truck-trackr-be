@@ -5,7 +5,7 @@ RSpec.describe FoodTruck, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:food_type) }
     it { should validate_presence_of(:contact_name) }
-    it { should validate_presence_of(:phone_number) }
+    it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:email) }
   end
   describe "relationships" do
