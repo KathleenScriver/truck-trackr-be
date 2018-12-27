@@ -165,4 +165,31 @@ describe("Brewery API") do
       expect(brewery_data[:message]).to eq("Brewery not found with ID 100")
     end
   end
+  describe("DELETE /breweries/:id") do
+    it("creates a brewery with all required attributes") do
+      brewery = create(:brewery)
+
+      delete "/api/v1/breweries/#{brewery.id}"
+      
+      expect(response).to be_successful
+      expect(response.status).to eq(204)
+
+      get "/api/v1/breweries/#{brewery.id}"
+
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(404)
+      expect(brewery_data).to have_key(:message)
+      expect(brewery_data[:message]).to eq("Brewery not found with ID #{brewery.id}")
+    end
+    it("returns a 404 if brewery is not found") do
+      brewery = create(:brewery)
+
+      delete "/api/v1/breweries/100"
+
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(404)
+      expect(brewery_data).to have_key(:message)
+      expect(brewery_data[:message]).to eq("Brewery not found with ID 100")
+    end
+  end
 end
