@@ -43,6 +43,29 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 ]
 ```
 
+**GET `/api/v1/food_trucks/:id`**
+
+- This endpoint will return a selected food truck in the database along with it's attributes when an id is given
+```json
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "food_truck",
+      "attributes": {
+        "name": "Ernie",
+        "food_type": "Risotto with Seafood",
+        "contact_name": "Pamala",
+        "phone_number": "344.694.9247",
+        "email": "young@champlin.biz",
+        "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+      }
+    }
+  ]
+}
+```
+
 **GET `/api/v1/breweries`**
 - Will return a list of all breweries in the database along with their name.
 
@@ -51,19 +74,43 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
     "data": [
               {
                 "id": "1",
-                "type": "brewery_index",
+                "type": "brewery",
                 "attributes": {
                     "name": "Lockman Inc"
                 }
               },
               {
                 "id": "2",
-                "type": "brewery_index",
+                "type": "brewery",
                 "attributes": {
                     "name": "Cremin, Nikolaus and Volkman"
                 }
               }
             ]
+}
+```
+
+**GET `/api/v1/breweries/:id`**
+
+- This endpoint will return a selected brewery in the database along with it's attributes when an id is given
+```json
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "brewery",
+      "attributes": {
+        "name": "Heads Of State",
+        "address": "Risotto with Seafood",
+        "contact_name": "Pamala",
+        "phone": "344.694.9247",
+        "email": "young@champlin.biz",
+        "website": "http://hosbeer.com",
+        "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+      }
+    }
+  ]
 }
 ```
 
