@@ -18,24 +18,14 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
         "id": "1",
         "type": "food_truck",
         "attributes": {
-          "name": "Ernie",
-          "food_type": "Risotto with Seafood",
-          "contact_name": "Pamala",
-          "phone_number": "344.694.9247",
-          "email": "young@champlin.biz",
-          "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+          "name": "Hot Pasta"
         }
       },
       {
         "id": "2",
         "type": "food_truck",
         "attributes": {
-            "name": "D.P",
-            "food_type": "Cheeseburger",
-            "contact_name": "King",
-            "phone_number": "580.638.7089",
-            "email": "cherly@oconnerlarson.info",
-            "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/10.png"
+            "name": "Hell On Wheels",
         }
       }
     ]
