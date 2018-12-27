@@ -166,7 +166,7 @@ describe("Brewery API") do
     end
   end
   describe("DELETE /breweries/:id") do
-    it("deletes a brewery with all required attributes") do
+    it("deletes a selected brewery") do
       brewery = create(:brewery)
 
       delete "/api/v1/breweries/#{brewery.id}"
