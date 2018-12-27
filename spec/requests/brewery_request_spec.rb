@@ -111,4 +111,58 @@ describe("Brewery API") do
       expect(brewery_data[:message]).to eq("Failed")
     end
   end
+  describe("PUT /breweries/:id") do
+    it("creates a brewery with all required attributes") do
+      brewery = create(:brewery)
+
+      payload = {
+        address: "1156 Windsor St., Boulder, CO 80604",
+        contact_name: "Elliot",
+        phone: "555-555-5555",
+        email: "updated@mockweb.com"
+      }
+
+      put "/api/v1/breweries/#{brewery.id}", params: payload
+
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(response).to be_successful
+      expect(brewery_data).to have_key(:data)
+      expect(brewery_data[:data].count).to eq(3)
+      expect(brewery_data[:data]).to have_key(:id)
+      expect(brewery_data[:data][:id]).to_not eq(brewery.id)
+      expect(brewery_data[:data]).to have_key(:type)
+      expect(brewery_data[:data][:type]).to eq("brewery")
+      expect(brewery_data[:data]).to have_key(:attributes)
+      expect(brewery_data[:data][:attributes]).to have_key(:name)
+      expect(brewery_data[:data][:attributes][:name]).to eq(brewery.name)
+      expect(brewery_data[:data][:attributes]).to have_key(:address)
+      expect(brewery_data[:data][:attributes][:address]).to eq(payload[:address])
+      expect(brewery_data[:data][:attributes]).to have_key(:contact_name)
+      expect(brewery_data[:data][:attributes][:contact_name]).to eq(payload[:contact_name])
+      expect(brewery_data[:data][:attributes]).to have_key(:phone)
+      expect(brewery_data[:data][:attributes][:phone]).to eq(payload[:phone])
+      expect(brewery_data[:data][:attributes]).to have_key(:email)
+      expect(brewery_data[:data][:attributes][:email]).to eq(payload[:email])
+      expect(brewery_data[:data][:attributes]).to have_key(:website)
+      expect(brewery_data[:data][:attributes][:website]).to eq(brewery.website)
+    end
+    it("returns a 404 if brewery is not found") do
+      brewery = create(:brewery)
+
+      payload = {
+        address: "1156 Windsor St., Boulder, CO 80604",
+        contact_name: "Elliot",
+        phone: "555-555-5555",
+        email: "updated@mockweb.com"
+      }
+
+      put "/api/v1/breweries/100", params: payload
+
+      brewery_data = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(404)
+      expect(brewery_data).to have_key(:message)
+      expect(brewery_data[:message]).to eq("Brewery not found with ID 100")
+    end
+  end
 end
