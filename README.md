@@ -44,11 +44,12 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
       "id": "1",
       "type": "food_truck",
       "attributes": {
-        "name": "Ernie",
+        "name": "Hot Pasta",
         "food_type": "Risotto with Seafood",
         "contact_name": "Pamala",
-        "phone_number": "344.694.9247",
+        "phone": "344.694.9247",
         "email": "young@champlin.biz",
+        "website": "http://hopo.com",
         "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
       }
     }
