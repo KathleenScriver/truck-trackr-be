@@ -32,6 +32,16 @@ class Api::V1::FoodTrucksController < ApplicationController
     end
   end
 
+  def destroy
+    truck = FoodTruck.find_by_id(params[:id])
+    if truck
+      truck.destroy
+      render status: 204
+    else
+      render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
+    end
+  end
+
   private
     def food_truck_params
       params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website)
