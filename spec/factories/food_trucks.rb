@@ -5,6 +5,7 @@ FactoryBot.define do
     contact_name { Faker::Name.first_name }
     phone { Faker::PhoneNumber.cell_phone }
     email { Faker::Internet.email }
+    website { Faker::Internet.url }
     logo_image { Faker::Company.logo }
   end
 end
