@@ -16,9 +16,19 @@ class Api::V1::FoodTrucksController < ApplicationController
   def create
     food_truck = FoodTruck.new(food_truck_params)
     if food_truck.save
-      render json: FoodTruckShowSerializer.new(food_truck).serialized_json
+      render json: FoodTruckShowSerializer.new(food_truck).serialized_json, status: 201
     else
       render json: {message: "Failed"}, status: 400
+    end
+  end
+
+  def update
+    truck = FoodTruck.find_by_id(params[:id])
+    if truck
+      truck.update(food_truck_params)
+      render json: FoodTruckShowSerializer.new(truck).serialized_json
+    else
+      render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
     end
   end
 

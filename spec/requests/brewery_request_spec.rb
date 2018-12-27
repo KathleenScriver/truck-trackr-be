@@ -112,7 +112,7 @@ describe("Brewery API") do
     end
   end
   describe("PUT /breweries/:id") do
-    it("creates a brewery with all required attributes") do
+    it("updates a brewery with all required attributes") do
       brewery = create(:brewery)
 
       payload = {
@@ -166,7 +166,7 @@ describe("Brewery API") do
     end
   end
   describe("DELETE /breweries/:id") do
-    it("creates a brewery with all required attributes") do
+    it("deletes a brewery with all required attributes") do
       brewery = create(:brewery)
 
       delete "/api/v1/breweries/#{brewery.id}"

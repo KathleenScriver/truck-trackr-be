@@ -123,13 +123,68 @@ describe "Food Truck API" do
         phone: "666-666-6666", 
         email: "hellonwheelss666@hotmail.com"
       }
-        post "/api/v1/food_trucks"
-  
-        food_truck_data = JSON.parse(response.body)
 
-        expect(response.status).to eq(400)
-        expect(food_truck_data).to have_key("message")
-        expect(food_truck_data["message"]).to eq("Failed")
+      post "/api/v1/food_trucks"
+
+      food_truck_data = JSON.parse(response.body)
+
+      expect(response.status).to eq(400)
+      expect(food_truck_data).to have_key("message")
+      expect(food_truck_data["message"]).to eq("Failed")
+    end
+  end    
+  describe 'PUT food truck end point' do
+    it 'user can update a truck with attributes' do
+      truck = create(:food_truck)
+      
+      payload = {
+        contact_name: "Sultan Charles", 
+        phone: "666-666-6666"
+      }
+
+      put "/api/v1/food_trucks/#{truck.id}", params: payload
+      
+      expect(response).to be_successful
+
+      trucks_response = JSON.parse(response.body)
+      
+      expect(trucks_response).to be_a(Hash)
+      expect(trucks_response).to have_key('data')
+      expect(trucks_response['data'].length).to eq(4)
+      expect(trucks_response['data']).to be_a(Hash)
+      expect(trucks_response['data']).to have_key('type')
+      expect(trucks_response['data']['type']).to eq('food_truck')
+      expect(trucks_response['data']).to have_key('id')
+      expect(trucks_response['data']['id']).to eq(truck.id.to_s)
+      expect(trucks_response['data']).to have_key('attributes')
+      expect(trucks_response['data']['attributes']).to have_key('name')
+      expect(trucks_response['data']['attributes']['name']).to eq(truck.name)
+      expect(trucks_response['data']['attributes']).to have_key('food_type')
+      expect(trucks_response['data']['attributes']['food_type']).to eq(truck.food_type)
+      expect(trucks_response['data']['attributes']).to have_key('contact_name')
+      expect(trucks_response['data']['attributes']['contact_name']).to eq(payload[:contact_name])
+      expect(trucks_response['data']['attributes']).to have_key('phone')
+      expect(trucks_response['data']['attributes']['phone']).to eq(payload[:phone])
+      expect(trucks_response['data']['attributes']).to have_key('email')
+      expect(trucks_response['data']['attributes']['email']).to eq(truck.email)
+    end
+    it "returns a 404 if food truck is not found" do
+      truck = create(:food_truck)
+
+      payload = {
+        food_type: "Barbecue", 
+        contact_name: "Sultan Charles", 
+        phone: "666-666-6666", 
+        email: "hellonwheelss666@hotmail.com"
+      }
+
+      put "/api/v1/food_trucks/10000"
+
+      food_truck_data = JSON.parse(response.body)
+
+      expect(response.status).to eq(404)
+      expect(food_truck_data).to have_key("message")
+      expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
     end
   end    
 end
