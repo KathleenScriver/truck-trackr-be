@@ -32,6 +32,16 @@ class Api::V1::BreweriesController < ApplicationController
     end
   end
 
+  def destroy
+    brewery = Brewery.find_by_id(params[:id])
+    if brewery
+      brewery.destroy
+      render status: 204
+    else
+      render json: {message: "Brewery not found with ID #{params[:id]}"}, status: 404
+    end
+  end
+
   private
     def brewery_params
       params.permit(:name, :address, :contact_name, :phone, :email, :website, :logo_image)
