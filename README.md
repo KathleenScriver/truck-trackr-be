@@ -105,7 +105,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
-**GET `/api/v1/food_trucks/:food_truck_id/open_dates`
+**GET `/api/v1/food_trucks/:food_truck_id/open_dates`**
 
 Lists all listed open_dates for a given food truck.
 
