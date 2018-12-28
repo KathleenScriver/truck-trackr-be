@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_25_191601) do
+ActiveRecord::Schema.define(version: 2018_12_28_200758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2018_12_25_191601) do
     t.string "website"
   end
 
+  create_table "open_dates", force: :cascade do |t|
+    t.date "date"
+    t.boolean "booked?"
+    t.bigint "food_truck_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_truck_id"], name: "index_open_dates_on_food_truck_id"
+  end
+
   add_foreign_key "food_truck_cities", "cities"
   add_foreign_key "food_truck_cities", "food_trucks"
+  add_foreign_key "open_dates", "food_trucks"
 end

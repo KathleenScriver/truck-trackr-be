@@ -11,5 +11,6 @@ RSpec.describe FoodTruck, type: :model do
   describe "relationships" do
     it { should have_many(:food_truck_cities) }
     it { should have_many(:cities).through(:food_truck_cities) }
+    it { should have_many(:open_dates) }
   end
 end
