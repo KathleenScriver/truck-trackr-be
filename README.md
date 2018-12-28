@@ -105,25 +105,51 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**GET `/api/v1/food_trucks/:food_truck_id/open_dates`
 
-Things you may want to cover:
+Lists all listed open_dates for a given food truck.
 
-* Ruby version
+**Example Response**
+```json
+{
+   "data": {
+        "id": "22",
+        "type": "food_truck",
+        "attributes": {
+            "name": "Skeeter",
+            "food_type": "Katsu Curry",
+            "contact_name": "Rosalia",
+            "phone": "1-267-595-6285",
+            "email": "blairwiegand@streichritchie.info",
+            "website": null,
+            "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/10.png"
+        },
+        "relationships": {
+            ...
+        }
+    },
+    "included": [
+        {
+            "id": "1",
+            "type": "open_date",
+            "attributes": {
+                "id": 1,
+                "date": "2019-02-24",
+                "booked?": true
+            }
+        },
+        {
+            "id": "3",
+            "type": "open_date",
+            "attributes": {
+                "id": 3,
+                "date": "2019-04-07",
+                "booked?": false
+            }
+        }
+      ]
+}
+```
+**Error Response**
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+If the truck cannot be located, the response will include `status: 400` with `"message": "Sorry, that food truck does not exist, please try again."`
