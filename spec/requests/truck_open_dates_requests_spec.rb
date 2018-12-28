@@ -11,18 +11,18 @@ describe("Truck OpenDates API") do
       get "/api/v1/food_trucks/#{food_truck.id}/open_dates"
 
       all_open_dates = JSON.parse(response.body, symbolize_names: true)
-require "pry"; binding.pry
+
       expect(response).to be_successful
       expect(all_open_dates).to have_key(:data)
       expect(all_open_dates[:data]).to have_key(:id)
-      expect(all_open_dates[:data][:id]).to eq(food_truck.id)
-      expect(all_open_dates[:data]).to have_key(:relationships)
-      expect(all_open_dates[:data][:relationships]).to have_key(:open_dates)
-      expect(all_open_dates[:data][:relationships][:open_dates]).to have_key(:data)
-      expect(all_open_dates[:data][:relationships][:open_dates][:data].count).to eq(5)
-      expect(all_open_dates[:data][:relationships][:open_dates][:data][0]).to have_key(:id)
-      expect(all_open_dates[:data][:relationships][:open_dates][:data][0]).to have_key(:date)
-      expect(all_open_dates[:data][:relationships][:open_dates][:data][0]).to have_key(:booked?)
+      expect(all_open_dates[:data][:id]).to eq(food_truck.id.to_s)
+      expect(all_open_dates).to have_key(:included)
+      expect(all_open_dates[:included].count).to eq(5)
+      expect(all_open_dates[:included][0]).to have_key(:id)
+      expect(all_open_dates[:included][0]).to have_key(:attributes)
+      expect(all_open_dates[:included][0][:attributes]).to have_key(:id)
+      expect(all_open_dates[:included][0][:attributes]).to have_key(:date)
+      expect(all_open_dates[:included][0][:attributes]).to have_key(:booked?)
     end
   end
 end
