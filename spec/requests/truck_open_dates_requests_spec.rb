@@ -4,10 +4,10 @@ describe("Truck OpenDates API") do
   describe("GET /food_trucks/:id/open_dates") do
     it("returns list of open_dates for specified truck") do
       food_truck = create(:food_truck)
-      open_date = create_list(:open_date, 5, food_truck_id: food_truck )
+      open_date = create_list(:open_date, 5, food_truck: food_truck )
 
       food_truck_2 = create(:food_truck)
-      other_open_date = create(:open_date, food_truck_id: food_truck_2)
+      other_open_date = create(:open_date, food_truck: food_truck_2)
 
 
       get "/api/v1/food_truck/#{food_truck.id}/open_dates"
