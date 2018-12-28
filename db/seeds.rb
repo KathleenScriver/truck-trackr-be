@@ -17,8 +17,17 @@ end
                     name: Faker::AquaTeenHungerForce.character,
                     food_type: Faker::Food.dish,
                     contact_name: Faker::Name.first_name,
-                    phone_number: Faker::PhoneNumber.cell_phone,
+                    phone: Faker::PhoneNumber.cell_phone,
                     email: Faker::Internet.email,
                     logo_image: Faker::Company.logo
                   )
+end
+
+food_truck_1 = FoodTruck.first
+
+5.times do
+  food_truck_1.open_dates.create(
+                                  date: Faker::Date.forward(120),
+                                  booked?: Faker::Boolean.boolean
+                                )
 end
