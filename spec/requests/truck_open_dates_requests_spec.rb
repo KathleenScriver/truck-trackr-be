@@ -24,5 +24,15 @@ describe("Truck OpenDates API") do
       expect(all_open_dates[:included][0][:attributes]).to have_key(:date)
       expect(all_open_dates[:included][0][:attributes]).to have_key(:booked?)
     end
+
+    it('returns 400 if truck does not exist') do
+      get "/api/v1/food_trucks/500/open_dates"
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Sorry, that food truck does not exist, please try again.")
+    end
   end
 end

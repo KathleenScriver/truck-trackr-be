@@ -23,7 +23,7 @@ describe "Food Truck API" do
         expect(trucks_response['data'][0]['attributes']).to have_key('name')
         expect(trucks_response['data'][0]['attributes']['name']).to eq(truck_1.name)
     end
-  end    
+  end
   describe 'GET food truck show end point' do
     it 'user can get food truck attributes' do
         truck = create(:food_truck)
@@ -72,21 +72,21 @@ describe "Food Truck API" do
     end
     it "returns a 404 if food_truck does not exist" do
 
-        get "/api/v1/food_trucks/10000"
-  
-        food_truck_data = JSON.parse(response.body)
-        expect(response.status).to eq(404)
-        expect(food_truck_data).to have_key("message")
-        expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
+      get "/api/v1/food_trucks/10000"
+
+      food_truck_data = JSON.parse(response.body)
+      expect(response.status).to eq(404)
+      expect(food_truck_data).to have_key("message")
+      expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
     end
   end    
   describe 'POST food truck show end point' do
     it 'user can get post new truck with required attributes' do
         payload = {
-          name: "Hell On Wheels", 
-          food_type: "Barbecue", 
-          contact_name: "Sultan Charles", 
-          phone: "666-666-6666", 
+          name: "Hell On Wheels",
+          food_type: "Barbecue",
+          contact_name: "Sultan Charles",
+          phone: "666-666-6666",
           email: "hellonwheelss666@hotmail.com"
         }
 
@@ -95,7 +95,7 @@ describe "Food Truck API" do
         expect(response).to be_successful
 
         trucks_response = JSON.parse(response.body)
-        
+
         expect(trucks_response).to be_a(Hash)
         expect(trucks_response).to have_key('data')
         expect(trucks_response['data'].length).to eq(4)
@@ -118,9 +118,9 @@ describe "Food Truck API" do
     end
     it "returns a 400 if payload does not have all required parameters" do
       payload = {
-        food_type: "Barbecue", 
-        contact_name: "Sultan Charles", 
-        phone: "666-666-6666", 
+        food_type: "Barbecue",
+        contact_name: "Sultan Charles",
+        phone: "666-666-6666",
         email: "hellonwheelss666@hotmail.com"
       }
 
@@ -132,22 +132,22 @@ describe "Food Truck API" do
       expect(food_truck_data).to have_key("message")
       expect(food_truck_data["message"]).to eq("Failed")
     end
-  end    
+  end
   describe 'PUT food truck end point' do
     it 'user can update a truck with attributes' do
       truck = create(:food_truck)
-      
+
       payload = {
-        contact_name: "Sultan Charles", 
+        contact_name: "Sultan Charles",
         phone: "666-666-6666"
       }
 
       put "/api/v1/food_trucks/#{truck.id}", params: payload
-      
+
       expect(response).to be_successful
 
       trucks_response = JSON.parse(response.body)
-      
+
       expect(trucks_response).to be_a(Hash)
       expect(trucks_response).to have_key('data')
       expect(trucks_response['data'].length).to eq(4)
@@ -172,9 +172,9 @@ describe "Food Truck API" do
       truck = create(:food_truck)
 
       payload = {
-        food_type: "Barbecue", 
-        contact_name: "Sultan Charles", 
-        phone: "666-666-6666", 
+        food_type: "Barbecue",
+        contact_name: "Sultan Charles",
+        phone: "666-666-6666",
         email: "hellonwheelss666@hotmail.com"
       }
 
@@ -192,7 +192,7 @@ describe "Food Truck API" do
       truck = create(:food_truck)
 
       delete "/api/v1/food_trucks/#{truck.id}"
-      
+
       expect(response).to be_successful
       expect(response.status).to eq(204)
 
