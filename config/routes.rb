@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         resources :open_dates, only: [:index, :create]
       end
       resources :breweries, except: [:new, :edit] do
-        resources :brewery_events, only: [:index, :create]
+        resources :brewery_events, only: [:index, :create, :update]
       end
     end
   end
