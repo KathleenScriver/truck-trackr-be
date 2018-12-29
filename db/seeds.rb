@@ -31,3 +31,7 @@ food_truck_1 = FoodTruck.first
                                   booked?: Faker::Boolean.boolean
                                 )
 end
+
+ActiveRecord::Base.connection.reset_pk_sequence!('food_trucks')
+ActiveRecord::Base.connection.reset_pk_sequence!('breweries')
+ActiveRecord::Base.connection.reset_pk_sequence!('open_dates')
