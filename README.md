@@ -57,6 +57,69 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
+**POST `/api/v1/food_trucks`**
+
+- This endpoint will add a new food truck to the database.
+
+**Expected Request Format:**
+
+```json
+{
+  "name": "name_of_food_truck", (required)
+  "food_type": "mexican fusion",  (required)
+  "contact_name": "for booking events",  (required)
+  "phone": "who can they call?",  (required)
+  "email": "who can they email?",  (required)
+  "logo_image": "WIP, ok to leave blank",
+  "website": "ok to leave this blank if not available"
+}
+```
+- A successful request will return `status code: 201`.
+- An unsuccessful request will return `status code: 400` and
+```json
+{
+  "message": "Failed"
+}
+```
+
+**PUT `/api/v1/food_trucks/:id`**
+
+- This endpoint will allow you to edit the food_truck.
+
+**Expected Request Format:**
+```json
+{
+ "name": "name_of_food_truck", (required)
+  "food_type": "mexican fusion",  (required)
+  "contact_name": "for booking events",  (required)
+  "phone": "who can they call?",  (required)
+  "email": "who can they email?",  (required)
+  "logo_image": "WIP, ok to leave blank",
+  "website": "ok to leave this blank if not available"
+}
+```
+
+- A successful request will return `status code: 201`.
+- An unsuccessful request will return `status code: 404` with
+```json
+{
+  "message": "Food Truck not found with ID #{params[:id]}"
+}
+```
+
+**DELETE `/api/v1/food_trucks/:id`**
+
+- This endpoint will delete the specified food_truck.
+
+- If successful, will return `status code: 204`.
+- If unsuccessful, will return `status code: 404` with
+```json
+{
+  "message": "Food Truck not found with ID #{params[:id]}"
+}
+```
+
+
 **GET `/api/v1/breweries`**
 - Will return a list of all breweries in the database along with their name.
 
@@ -104,6 +167,69 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   ]
 }
 ```
+
+**POST `/api/v1/breweries`**
+
+- This endpoint will create a new brewery to add to the database.
+
+**Expected Request Format:**
+```json
+{
+  "name": "Heads Of State",  (required)
+  "address": "123 Main St, Denver, CO 80203",  (required)
+  "contact_name": "Pamala",  (required)
+  "phone": "344.694.9247",  (required)
+  "email": "young@champlin.biz",  (required)
+  "website": "http://hosbeer.com",
+  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+ }
+ ```
+  
+ - A successful requet will return `status code: 201`.
+ - An unsuccessful request will return `status code: 400` with
+ ```json
+ {
+   "message": "Failed"
+ }
+ ```
+  
+**PUT `/api/v1/breweries/:id`**
+
+- This endpoint will allow you to edit an existing brewery.
+
+**Expected Request Format:**
+```json
+{
+  "name": "Heads Of State",  (required)
+  "address": "123 Main St, Denver, CO 80203",  (required)
+  "contact_name": "Pamala",  (required)
+  "phone": "344.694.9247",  (required)
+  "email": "young@champlin.biz",  (required)
+  "website": "http://hosbeer.com",
+  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+}
+```
+- A successful requet will return `status code: 201`.
+- An unsuccessful request will return `status code: 400` with
+```json
+{
+  "message": "Brewery not found with ID #{params[:id]}"
+}
+```
+
+**DELETE `/api/v1/breweries/:id`**
+
+- This endpoint will delete the specified brewery from the database.
+
+- A successful request will return `status code: 204`.
+- An unsuccessful request will return `status code: 404` with
+```json
+{
+  "message": "Brewery not found with ID #{params[:id]}"
+}
+```
+
+
 
 **GET `/api/v1/food_trucks/:food_truck_id/open_dates`**
 
