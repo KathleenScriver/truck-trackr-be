@@ -7,6 +7,9 @@ class Api::V1::OpenDatesController < ApplicationController
       render json: FoodTruckShowSerializer.new(food_truck, options).serialized_json
     else
       render json: {message: "Sorry, that food truck does not exist, please try again."}, status: 400
-    end 
+    end
   end
+
+  def create
+  end 
 end
