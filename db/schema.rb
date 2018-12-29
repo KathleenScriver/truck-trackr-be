@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 2018_12_29_173419) do
     t.string "logo_image"
   end
 
+  create_table "brewery_events", force: :cascade do |t|
+    t.date "date"
+    t.boolean "truck_booked?", default: false
+    t.bigint "brewery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brewery_id"], name: "index_brewery_events_on_brewery_id"
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -63,6 +72,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_173419) do
     t.index ["food_truck_id"], name: "index_open_dates_on_food_truck_id"
   end
 
+  add_foreign_key "brewery_events", "breweries"
   add_foreign_key "food_truck_cities", "cities"
   add_foreign_key "food_truck_cities", "food_trucks"
   add_foreign_key "open_dates", "food_trucks"
