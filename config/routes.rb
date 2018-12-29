@@ -5,7 +5,9 @@ Rails.application.routes.draw do
       resources :food_trucks, except: [:new, :edit] do
         resources :open_dates, only: [:index, :create]
       end
-      resources :breweries, except: [:new, :edit]
+      resources :breweries, except: [:new, :edit] do
+        resources :brewery_events, only: [:index]
+      end
     end
   end
 end
