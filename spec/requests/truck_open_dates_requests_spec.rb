@@ -73,6 +73,7 @@ describe("Truck OpenDates API") do
         params: { date: "Mon, 7 Jan 2019", booked?: !original_booked }
 
       updated_open_date = JSON.parse(response.body)
+# Have this return the updated open_date object instead
 
       expect(response.status).to eq(201)
       expect(response).to be_successful

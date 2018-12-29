@@ -23,7 +23,7 @@ class Api::V1::OpenDatesController < ApplicationController
   def update
     open_date = OpenDate.find_by_id(params[:id])
     if open_date && open_date.update(open_date_params)
-      render status: 201
+      render json: {test: "test"}, status: 201
     else
       render json: {message: "Could not update, please try again."}, status: 400
     end
