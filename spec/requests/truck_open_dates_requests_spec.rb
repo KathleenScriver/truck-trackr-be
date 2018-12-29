@@ -51,5 +51,14 @@ describe("Truck OpenDates API") do
       expect(@food_truck.open_dates.count).to eq(6)
       expect(@food_truck.open_dates.last[:date]).to eq(new_open_date_attributes[:date])
     end
+
+    it('should return 400 if params not valid') do
+      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: {date: "Tue, 16 Apr 2019"}
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(error[:message]).to eq("Could not save, please try again.")
+    end
   end
 end

@@ -16,7 +16,7 @@ class Api::V1::OpenDatesController < ApplicationController
     if open_date.save
       render status: 201
     else
-      render json: {message: "Could not save, please try again."}, status: 201
+      render json: {message: "Could not save, please try again."}, status: 400
     end
   end
 
