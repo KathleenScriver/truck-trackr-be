@@ -58,7 +58,7 @@ describe("Brewery Events API") do
     end
   end
   describe("PUT /api/v1/breweries/:brewery_id/brewery_events") do
-    it('should create new brewery event') do
+    it('should update brewery event') do
       brewery = create(:brewery)
       brewery_event = create(:brewery_event, truck_booked?: true, brewery: brewery)
 
@@ -107,6 +107,55 @@ describe("Brewery Events API") do
       payload = {truck_booked?: false}
 
       put "/api/v1/breweries/#{brewery.id}/brewery_events/#{brewery_event.id}", params: payload
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Event ID #{brewery_event.id} not associated with Brewery ID #{brewery.id}")
+    end
+  end
+  describe("DELETE /api/v1/breweries/:brewery_id/brewery_events") do
+    it('should delete brewery event') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, brewery: brewery)
+
+      expect(brewery.brewery_events.count).to eq(1)
+
+      delete "/api/v1/breweries/#{brewery.id}/brewery_events/#{brewery_event.id}"
+
+      expect(response.status).to eq(204)
+      expect(brewery.brewery_events.count).to eq(0)
+    end
+    it('returns 400 if brewery event does not exist') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, brewery: brewery)
+
+      delete "/api/v1/breweries/#{brewery.id}/brewery_events/5000"
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Event not found with ID 5000")
+    end
+    it('returns 400 if brewery does not exist') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, brewery: brewery)
+
+      delete "/api/v1/breweries/9999/brewery_events/#{brewery_event.id}"
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Brewery not found with ID 9999")
+    end
+    it('returns 400 if event is not associated with brewery') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event)
+
+      delete "/api/v1/breweries/#{brewery.id}/brewery_events/#{brewery_event.id}"
 
       data = JSON.parse(response.body, symbolize_names: true)
 
