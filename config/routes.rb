@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :food_trucks, except: [:new, :edit] do
-        resources :open_dates, only: [:index, :create]
+        resources :open_dates, only: [:index, :create, :update]
       end
       resources :breweries, except: [:new, :edit]
     end
