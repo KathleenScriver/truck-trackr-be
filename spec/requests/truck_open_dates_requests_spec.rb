@@ -61,4 +61,24 @@ describe("Truck OpenDates API") do
       expect(error[:message]).to eq("Could not save, please try again.")
     end
   end
+
+  describe("PUT /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
+    it("should edit the given open date") do
+      open_date = @food_truck.open_dates.first
+
+      original_date = open_date[:date]
+      original_booked = open_date[:booked?]
+
+      put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{open_date.id}",
+        params: { date: "Mon, 7 Jan 2019", booked?: !original_booked }
+
+      updated_open_date = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(201)
+      expect(response).to be_successful
+      expect(updated_open_date[:date]).to_not eq(original_date)
+      expect(updated_open_date[:date]).to eq("Mon, 7 Jan 2019")
+      expect(updated_open_date[:booked?]).to eq(!original_booked)
+    end
+  end
 end
