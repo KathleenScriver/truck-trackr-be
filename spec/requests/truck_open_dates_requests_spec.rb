@@ -48,8 +48,7 @@ describe("Truck OpenDates API") do
 
       expect(response).to be_successful
       expect(response.status).to eq(201)
-      expect(@food_truck.open_dates).to eq(6)
-      require "pry"; binding.pry
+      expect(@food_truck.open_dates.count).to eq(6)
       expect(@food_truck.open_dates.last[:date]).to eq(new_open_date_attributes[:date])
     end
   end

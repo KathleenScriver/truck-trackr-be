@@ -11,5 +11,18 @@ class Api::V1::OpenDatesController < ApplicationController
   end
 
   def create
-  end 
+    food_truck = FoodTruck.find_by_id(params[:food_truck_id])
+    open_date = food_truck.open_dates.create(open_date_params)
+    if open_date.save
+      render status: 201
+    else
+      render json: {message: "Could not save, please try again."}, status: 201
+    end
+  end
+
+  private
+
+  def open_date_params
+    params.permit(:date, :booked?)
+  end
 end
