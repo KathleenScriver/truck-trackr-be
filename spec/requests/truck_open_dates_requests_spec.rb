@@ -53,7 +53,7 @@ describe("Truck OpenDates API") do
     end
 
     it('should return 400 if params not valid') do
-      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: {date: "Tue, 16 Apr 2019"}
+      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: {booked?: true}
 
       error = JSON.parse(response.body, symbolize_names: true)
 
