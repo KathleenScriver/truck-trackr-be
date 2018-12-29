@@ -72,13 +72,13 @@ describe("Truck OpenDates API") do
       put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{open_date.id}",
         params: { date: "Mon, 7 Jan 2019", booked?: !original_booked }
 
-      updated_open_date = JSON.parse(response.body, symbolize_names: true)
+      updated_open_date = JSON.parse(response.body)
 
       expect(response.status).to eq(201)
       expect(response).to be_successful
-      expect(updated_open_date[:date]).to_not eq(original_date)
-      expect(updated_open_date[:date]).to eq("Mon, 7 Jan 2019")
-      expect(updated_open_date[:booked?]).to eq(!original_booked)
+      expect(open_date[:date]).to_not eq(original_date)
+      expect(open_date[:date]).to eq("Mon, 7 Jan 2019")
+      expect(open_date[:booked?]).to eq(!original_booked)
     end
   end
 end
