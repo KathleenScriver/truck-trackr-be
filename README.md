@@ -153,3 +153,32 @@ Lists all listed open_dates for a given food truck.
 **Error Response**
 
 If the truck cannot be located, the response will include `status: 400` with `"message": "Sorry, that food truck does not exist, please try again."`
+
+
+**POST `/api/v1/food_trucks/:food_truck_id/open_dates`**
+
+-This will create a new open_date object for the truck specified in the path.
+
+**Request Format:**
+```json
+{
+  date: Tue, 16 Apr 2019
+}
+```
+The attribute of `booked?` will default to `false`. If you want to create the open_date with `booked?` set to `true`, you can send it as an additional parameter in the request.
+```json
+{
+  date: Tue, 16 Apr 2019,
+  booked?: true
+}
+```
+
+**Example Response**
+ - If successful, response will return `status code: 201`.
+ 
+ - If not successful, response will return `status code: 400` with
+ ```json
+ {
+   message: Could not save, please try again.
+ }
+ ```
