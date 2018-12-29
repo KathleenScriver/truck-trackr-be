@@ -27,7 +27,7 @@ describe("Brewery API") do
 
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
-      expect(brewery_data[:data].count).to eq(3)
+      expect(brewery_data[:data].count).to eq(4)
       expect(brewery_data[:data]).to have_key(:id)
       expect(brewery_data[:data][:id]).to eq(brewery.id.to_s)
       expect(brewery_data[:data]).to have_key(:type)
@@ -75,7 +75,7 @@ describe("Brewery API") do
       
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
-      expect(brewery_data[:data].count).to eq(3)
+      expect(brewery_data[:data].count).to eq(4)
       expect(brewery_data[:data]).to have_key(:id)
       expect(brewery_data[:data][:id]).to_not eq(nil)
       expect(brewery_data[:data]).to have_key(:type)
@@ -128,7 +128,7 @@ describe("Brewery API") do
       
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
-      expect(brewery_data[:data].count).to eq(3)
+      expect(brewery_data[:data].count).to eq(4)
       expect(brewery_data[:data]).to have_key(:id)
       expect(brewery_data[:data][:id]).to_not eq(brewery.id)
       expect(brewery_data[:data]).to have_key(:type)
