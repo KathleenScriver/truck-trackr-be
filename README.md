@@ -162,14 +162,14 @@ If the truck cannot be located, the response will include `status: 400` with `"m
 **Request Format:**
 ```json
 {
-  date: Tue, 16 Apr 2019
+  "date": "Tue, 16 Apr 2019"
 }
 ```
 The attribute of `booked?` will default to `false`. If you want to create the open_date with `booked?` set to `true`, you can send it as an additional parameter in the request.
 ```json
 {
-  date: Tue, 16 Apr 2019,
-  booked?: true
+  "date": "Tue, 16 Apr 2019",
+  "booked?": true
 }
 ```
 
@@ -179,6 +179,6 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  - If not successful, response will return `status code: 400` with
  ```json
  {
-   message: Could not save, please try again.
+   "message": "Could not save, please try again."
  }
  ```
