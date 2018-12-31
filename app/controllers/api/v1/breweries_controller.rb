@@ -26,7 +26,7 @@ class Api::V1::BreweriesController < ApplicationController
     brewery = Brewery.find_by_id(params[:id])
     if brewery
       brewery.update(brewery_params)
-      render json: BreweryShowSerializer.new(brewery).serialized_json, 201
+      render json: BreweryShowSerializer.new(brewery).serialized_json, status: 201
     else
       render json: {message: "Brewery not found with ID #{params[:id]}"}, status: 404
     end
