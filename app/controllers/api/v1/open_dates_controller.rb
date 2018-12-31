@@ -11,7 +11,13 @@ class Api::V1::OpenDatesController < ApplicationController
   end
 
   def show
-
+    food_truck = FoodTruck.find_by_id(params[:food_truck_id])
+    open_date = food_truck.open_dates.find_by_id(params[:id])
+    if food_truck && open_date
+      render json: OpenDateSerializer.new(open_date).serialized_json
+    else
+      render json: { message: "Could not locate open date."}, status: 400
+    end 
   end
 
   def create

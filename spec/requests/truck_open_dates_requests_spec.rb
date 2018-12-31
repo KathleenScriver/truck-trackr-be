@@ -51,10 +51,10 @@ describe("Truck OpenDates API") do
       expect(response).to be_successful
       expect(target_data).to have_key(:data)
       expect(target_data[:data]).to have_key(:id)
-      expect(target_data[:data][:id]).to eq(target_open_date.id)
+      expect(target_data[:data][:id]).to eq(target_open_date.id.to_s)
       expect(target_data[:data]).to have_key(:attributes)
       expect(target_data[:data][:attributes]).to have_key(:date)
-      expect(target_data[:data][:attributes][:date]).to eq(target_open_date.date)
+      expect(target_data[:data][:attributes][:date]).to eq(target_open_date.date.strftime('%Y-%m-%d'))
       expect(target_data[:data][:attributes]).to have_key(:booked?)
       expect(target_data[:data][:attributes][:booked?]).to eq(target_open_date.booked?)
     end
