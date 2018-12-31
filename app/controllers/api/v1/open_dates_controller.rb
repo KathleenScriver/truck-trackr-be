@@ -20,6 +20,11 @@ class Api::V1::OpenDatesController < ApplicationController
     end
   end
 
+  def destroy
+    
+
+  end
+
   private
 
   def open_date_params
