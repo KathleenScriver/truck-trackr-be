@@ -27,6 +27,8 @@ class Api::V1::OpenDatesController < ApplicationController
       render status: 204
     else
       render json: { message: "Could not delete Open Date. Please try again." }, status: 400
+    end
+  end
 
   def update
     food_truck = FoodTruck.find_by_id(params[:food_truck_id])
@@ -35,7 +37,6 @@ class Api::V1::OpenDatesController < ApplicationController
       render json: OpenDateSerializer.new(open_date).serialized_json, status: 200
     else
       render json: {message: "Could not update, please try again."}, status: 400
-
     end
   end
 
