@@ -35,16 +35,14 @@ class Api::V1::BreweryEventsController < ApplicationController
 
   def destroy
     brewery = Brewery.find_by_id(params[:brewery_id])
-    brewery_event = BreweryEvent.find_by_id(params[:id])
+    brewery_event = brewery.brewery_events.find_by_id(params[:id]) unless brewery.nil?
     if brewery == nil
       render json: {message: "Brewery not found with ID #{params[:brewery_id]}"}, status: 404
     elsif brewery_event == nil
-      render json: {message: "Event not found with ID #{params[:id]}"}, status: 404
-    elsif brewery.id == brewery_event.brewery_id
+      render json: {message: "Event ID #{params[:id]} not found with associated brewery ID #{params[:brewery_id]}"}, status: 404
+    else
       brewery_event.destroy
       render status: 204
-    else
-      render json: {message: "Event ID #{params[:id]} not associated with Brewery ID #{params[:brewery_id]}"}, status: 400
     end
   end
 
