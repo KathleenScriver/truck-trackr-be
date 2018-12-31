@@ -20,6 +20,16 @@ class Api::V1::OpenDatesController < ApplicationController
     end
   end
 
+  def update
+    food_truck = FoodTruck.find_by_id(params[:food_truck_id])
+    open_date = food_truck.open_dates.find_by_id(params[:id])
+    if food_truck && open_date && open_date.update(open_date_params)
+      render json: OpenDateSerializer.new(open_date).serialized_json, status: 200
+    else
+      render json: {message: "Could not update, please try again."}, status: 400
+    end
+  end
+
   private
 
   def open_date_params
