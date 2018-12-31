@@ -3,7 +3,7 @@ require "rails_helper"
 describe("Truck OpenDates API") do
   before(:each) do
     @food_truck = create(:food_truck)
-    create_list(:open_date, 5, food_truck: @food_truck)
+    @open_dates = create_list(:open_date, 5, food_truck: @food_truck)
 
     @food_truck_2 = create(:food_truck)
     @other_open_date = create(:open_date, food_truck: @food_truck_2)
@@ -37,6 +37,26 @@ describe("Truck OpenDates API") do
       expect(response.status).to eq(400)
       expect(data).to have_key(:message)
       expect(data[:message]).to eq("Sorry, that food truck does not exist, please try again.")
+    end
+  end
+
+  describe("GET /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
+    it("should return only the specified open date") do
+      target_open_date = @open_dates.second
+
+      get "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{target_open_date.id}"
+
+      target_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(target_data).to have_key(:data)
+      expect(target_data[:data]).to have_key(:id)
+      expect(target_data[:data][:id]).to eq(target_open_date.id)
+      expect(target_data[:data]).to have_key(:attributes)
+      expect(target_data[:data][:attributes]).to have_key(:date)
+      expect(target_data[:data][:attributes][:date]).to eq(target_open_date.date)
+      expect(target_data[:data][:attributes]).to have_key(:booked?)
+      expect(target_data[:data][:attributes][:booked?]).to eq(target_open_date.booked?)
     end
   end
 
