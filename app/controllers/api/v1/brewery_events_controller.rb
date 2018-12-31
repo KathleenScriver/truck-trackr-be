@@ -10,6 +10,16 @@ class Api::V1::BreweryEventsController < ApplicationController
     end
   end
 
+  def show
+    brewery = Brewery.find_by_id(params[:brewery_id])
+    brewery_event = brewery.brewery_events.find_by_id(params[:id]) unless brewery.nil?
+    if brewery && brewery_event
+      render json: BreweryEventSerializer.new(brewery_event).serialized_json
+    else
+      render json: { message: "Could not locate resource."}, status: 404
+    end
+  end
+
   def create
     brewery = Brewery.find_by_id(params[:brewery_id])
     brewery_event = brewery.brewery_events.create(brewery_event_params)

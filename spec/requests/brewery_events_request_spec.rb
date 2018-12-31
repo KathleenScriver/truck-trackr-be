@@ -35,6 +35,48 @@ describe("Brewery Events API") do
       expect(data[:message]).to eq("Sorry, that brewery does not exist, please try again.")
     end
   end
+  describe("GET /breweries/:id/events/:id") do
+    it("should return only the specified event") do
+      brewery = create(:brewery)
+      events = create_list(:brewery_event, 5, brewery: brewery)
+
+      get "/api/v1/breweries/#{brewery.id}/brewery_events/#{events.last.id}"
+
+      target_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(target_data).to have_key(:data)
+      expect(target_data[:data]).to have_key(:id)
+      expect(target_data[:data][:id]).to eq(events.last.id.to_s)
+      expect(target_data[:data]).to have_key(:attributes)
+      expect(target_data[:data][:attributes]).to have_key(:date)
+      expect(target_data[:data][:attributes][:date]).to eq(events.last.date.strftime('%Y-%m-%d'))
+      expect(target_data[:data][:attributes]).to have_key(:truck_booked?)
+      expect(target_data[:data][:attributes][:truck_booked?]).to eq(events.last.truck_booked?)
+    end
+    it("should return 404 when brewery not found") do
+      brewery = create(:brewery)
+      events = create_list(:brewery_event, 5, brewery: brewery)
+
+      get "/api/v1/breweries/#{brewery.id + 500}/brewery_events/#{events.last.id}"
+
+      error_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(error_data[:message]).to eq("Could not locate resource.")
+    end
+    it("should return 404 when event not found") do
+      brewery = create(:brewery)
+      events = create_list(:brewery_event, 5, brewery: brewery)
+
+      get "/api/v1/breweries/#{brewery.id}/brewery_events/#{events.last.id + 500}"
+
+      error_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(error_data[:message]).to eq("Could not locate resource.")
+    end
+  end
   describe("POST /api/v1/breweries/:brewery_id/brewery_events") do
     it('should create new brewery event') do
       brewery = create(:brewery)
