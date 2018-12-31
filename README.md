@@ -75,7 +75,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 - A successful request will return `status code: 201`.
-- An unsuccessful request will return `status code: 400` and
+- An unsuccessful request will return `status code: 404` and
 ```json
 {
   "message": "Failed"
@@ -99,7 +99,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
-- A successful request will return `status code: 201`.
+- A successful request will return `status code: 200`.
 - An unsuccessful request will return `status code: 404` with
 ```json
 {
@@ -186,7 +186,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
  ```
   
  - A successful requet will return `status code: 201`.
- - An unsuccessful request will return `status code: 400` with
+ - An unsuccessful request will return `status code: 404` with
  ```json
  {
    "message": "Failed"
@@ -209,8 +209,8 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
 }
 ```
-- A successful requet will return `status code: 201`.
-- An unsuccessful request will return `status code: 400` with
+- A successful requet will return `status code: 200`.
+- An unsuccessful request will return `status code: 404` with
 ```json
 {
   "message": "Brewery not found with ID #{params[:id]}"
@@ -276,9 +276,38 @@ Lists all listed open_dates for a given food truck.
       ]
 }
 ```
+
 **Error Response**
 
 If the truck cannot be located, the response will include `status: 400` with `"message": "Sorry, that food truck does not exist, please try again."`
+
+**GET `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
+
+- This endpoint will return the specified Open Date for the food truck.
+
+**Example Response**
+```json
+{
+    "data": {
+        "id": "2",
+        "type": "open_date",
+        "attributes": {
+            "id": 2,
+            "date": "2019-01-01",
+            "booked?": false
+        }
+    }
+}
+```
+
+**Error Response**
+
+- If either the food truck or the Open Date do not exist, the response will include `status code: 404` with
+```json
+{
+  "message": "Could not locate resource"
+}
+```
 
 
 **POST `/api/v1/food_trucks/:food_truck_id/open_dates`**
@@ -302,7 +331,7 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 **Example Response**
  - If successful, response will return `status code: 201`.
  
- - If not successful, response will return `status code: 400` with
+ - If not successful, response will return `status code: 404` with
  ```json
  {
    "message": "Could not save, please try again."
@@ -322,9 +351,9 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 (Request can include one or both of the above listed attributes.)
 
 **Example Response**
- - If successful, response will return `status code: 201`.
+ - If successful, response will return `status code: 200`.
  
- - If not successful, response will return `status code: 400` with
+ - If not successful, response will return `status code: 404` with
  ```json
  {
    "message": "Could not update, please try again."
