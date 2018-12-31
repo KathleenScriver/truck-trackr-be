@@ -40,6 +40,46 @@ describe("Truck OpenDates API") do
     end
   end
 
+  describe("GET /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
+    it("should return only the specified open date") do
+      target_open_date = @open_dates.second
+
+      get "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{target_open_date.id}"
+
+      target_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(target_data).to have_key(:data)
+      expect(target_data[:data]).to have_key(:id)
+      expect(target_data[:data][:id]).to eq(target_open_date.id.to_s)
+      expect(target_data[:data]).to have_key(:attributes)
+      expect(target_data[:data][:attributes]).to have_key(:date)
+      expect(target_data[:data][:attributes][:date]).to eq(target_open_date.date.strftime('%Y-%m-%d'))
+      expect(target_data[:data][:attributes]).to have_key(:booked?)
+      expect(target_data[:data][:attributes][:booked?]).to eq(target_open_date.booked?)
+    end
+
+    it("should return 404 when truck not found") do
+      target_open_date = @open_dates.second
+
+      get "/api/v1/food_trucks/#{FoodTruck.last.id + 500}/open_dates/#{target_open_date.id}"
+
+      error_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(error_data[:message]).to eq("Could not locate resource.")
+    end
+
+    it("should return 404 when open date not found") do
+      get "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 500}"
+
+      error_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(error_data[:message]).to eq("Could not locate resource.")
+    end
+  end
+
   describe("POST /api/v1/food_truck/:food_truck_id/open_dates") do
     it('should create new open_date') do
       new_open_date_attributes = attributes_for(:open_date)
