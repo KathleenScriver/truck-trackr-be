@@ -20,6 +20,19 @@ class Api::V1::BreweryEventsController < ApplicationController
     end
   end
 
+  def update
+    brewery = Brewery.find_by_id(params[:brewery_id])
+    brewery_event = brewery.brewery_events.find_by_id(params[:id]) unless brewery.nil?
+    if brewery == nil
+      render json: {message: "Brewery not found with ID #{params[:brewery_id]}"}, status: 404
+    elsif brewery_event == nil
+      render json: {message: "Event ID #{params[:id]} not found with associated brewery ID #{params[:brewery_id]}"}, status: 404
+    else
+      brewery_event.update(brewery_event_params)
+      render status: 200
+    end
+  end
+
   private
 
   def brewery_event_params

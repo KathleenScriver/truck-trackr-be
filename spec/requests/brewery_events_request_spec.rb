@@ -57,4 +57,62 @@ describe("Brewery Events API") do
       expect(error[:message]).to eq("Could not save, please try again.")
     end
   end
+  describe("PUT /api/v1/breweries/:brewery_id/brewery_events") do
+    it('should create new brewery event') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, truck_booked?: true, brewery: brewery)
+
+      expect(brewery_event.truck_booked?).to eq(true)
+
+      payload = {truck_booked?: false}
+
+      put "/api/v1/breweries/#{brewery.id}/brewery_events/#{brewery_event.id}", params: payload
+
+      expect(response).to be_successful
+      expect(brewery.brewery_events.count).to eq(1)
+      expect(brewery.brewery_events.last[:truck_booked?]).to eq(payload[:truck_booked?])
+    end
+    it('returns 404 if brewery event does not exist') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, truck_booked?: true, brewery: brewery)
+
+      payload = {truck_booked?: false}
+
+      put "/api/v1/breweries/#{brewery.id}/brewery_events/5000", params: payload
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Event ID 5000 not found with associated brewery ID #{brewery.id}")
+    end
+    it('returns 404 if brewery does not exist') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, truck_booked?: true, brewery: brewery)
+
+      payload = {truck_booked?: false}
+
+      put "/api/v1/breweries/9999/brewery_events/#{brewery_event.id}", params: payload
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Brewery not found with ID 9999")
+    end
+    it('returns 404 if event is not associated with brewery') do
+      brewery = create(:brewery)
+      brewery_event = create(:brewery_event, truck_booked?: true)
+
+      payload = {truck_booked?: false}
+
+      put "/api/v1/breweries/#{brewery.id}/brewery_events/#{brewery_event.id}", params: payload
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(404)
+      expect(data).to have_key(:message)
+      expect(data[:message]).to eq("Event ID #{brewery_event.id} not found with associated brewery ID #{brewery.id}")
+    end
+  end
 end
