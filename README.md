@@ -315,10 +315,11 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  **Request Format:**
  ```json
 {
-  "date": "Tue, 16 Apr 2019", (required)
+  "date": "Tue, 16 Apr 2019",
   "booked?": true
 }
 ```
+(Request can include one or both of the above listed attributes.)
 
 **Example Response**
  - If successful, response will return `status code: 201`.

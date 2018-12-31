@@ -80,6 +80,40 @@ describe("Truck OpenDates API") do
 
       expect(response.status).to eq(400)
       expect(error_response[:message]).to eq("Could not delete Open Date. Please try again.")
+      
+  describe("PUT /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
+    it("should edit the given open date") do
+      open_date = @food_truck.open_dates.first
+
+      original_date = open_date[:date]
+      original_booked = open_date[:booked?]
+
+      put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{open_date.id}",
+        params: { date: "Mon, 7 Jan 2019", booked?: !original_booked }
+
+      put_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(200)
+      expect(response).to be_successful
+      expect(put_response).to have_key(:data)
+      expect(put_response[:data]).to have_key(:id)
+      expect(put_response[:data][:id]).to eq(open_date.id.to_s)
+      expect(put_response[:data]).to have_key(:attributes)
+      expect(put_response[:data][:attributes]).to have_key(:date)
+      expect(put_response[:data][:attributes][:date]).to_not eq(original_date)
+      expect(put_response[:data][:attributes][:date]).to eq("2019-01-07")
+      expect(put_response[:data][:attributes]).to have_key(:booked?)
+      expect(put_response[:data][:attributes][:booked?]).to eq(!original_booked)
+    end
+
+    it('returns 400 if can not find truck or open_date') do
+      put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 10}",
+        params: { booked?: true }
+
+      put_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(put_response[:message]).to eq("Could not update, please try again.")
     end
   end
 end

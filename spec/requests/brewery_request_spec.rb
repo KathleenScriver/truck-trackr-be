@@ -72,7 +72,7 @@ describe("Brewery API") do
       post "/api/v1/breweries", params: payload
 
       brewery_data = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
       expect(brewery_data[:data].count).to eq(4)
@@ -125,7 +125,7 @@ describe("Brewery API") do
       put "/api/v1/breweries/#{brewery.id}", params: payload
 
       brewery_data = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response).to be_successful
       expect(brewery_data).to have_key(:data)
       expect(brewery_data[:data].count).to eq(4)
@@ -170,7 +170,7 @@ describe("Brewery API") do
       brewery = create(:brewery)
 
       delete "/api/v1/breweries/#{brewery.id}"
-      
+
       expect(response).to be_successful
       expect(response.status).to eq(204)
 
