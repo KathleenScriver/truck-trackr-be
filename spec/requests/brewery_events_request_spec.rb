@@ -25,7 +25,6 @@ describe("Brewery Events API") do
       expect(all_events[:included][0][:attributes]).to have_key(:date)
       expect(all_events[:included][0][:attributes]).to have_key(:truck_booked?)
     end
-
     it('returns 400 if brewery does not exist') do
       get "/api/v1/breweries/500/brewery_events"
 
@@ -34,6 +33,28 @@ describe("Brewery Events API") do
       expect(response.status).to eq(400)
       expect(data).to have_key(:message)
       expect(data[:message]).to eq("Sorry, that brewery does not exist, please try again.")
+    end
+  end
+  describe("POST /api/v1/breweries/:brewery_id/brewery_events") do
+    it('should create new brewery event') do
+      brewery = create(:brewery)
+      new_brewery_event_attributes = attributes_for(:brewery_event)
+
+      post "/api/v1/breweries/#{brewery.id}/brewery_events", params: new_brewery_event_attributes
+
+      expect(response).to be_successful
+      expect(response.status).to eq(201)
+      expect(brewery.brewery_events.count).to eq(1)
+      expect(brewery.brewery_events.last[:date]).to eq(new_brewery_event_attributes[:date])
+    end
+    it('should return 400 if params not valid') do
+      brewery = create(:brewery)
+      post "/api/v1/breweries/#{brewery.id}/brewery_events", params: {truck_booked?: true}
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(error[:message]).to eq("Could not save, please try again.")
     end
   end
 end
