@@ -10,6 +10,10 @@ class Api::V1::OpenDatesController < ApplicationController
     end
   end
 
+  def show
+
+  end
+
   def create
     food_truck = FoodTruck.find_by_id(params[:food_truck_id])
     open_date = food_truck.open_dates.create(open_date_params)
