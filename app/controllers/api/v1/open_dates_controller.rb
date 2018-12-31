@@ -24,7 +24,7 @@ class Api::V1::OpenDatesController < ApplicationController
     food_truck = FoodTruck.find_by_id(params[:food_truck_id])
     open_date = food_truck.open_dates.find_by_id(params[:id])
     if food_truck && open_date && open_date.destroy
-      render json: { message: "You have successfully deleted Open Date #{open_date.date}."}, status: 200
+      render status: 204
     else
       render json: { message: "Could not delete Open Date. Please try again." }, status: 400
     end
