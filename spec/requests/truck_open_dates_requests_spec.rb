@@ -74,5 +74,14 @@ describe("Truck OpenDates API") do
       expect(response.status).to eq(200)
       expect(delete_response[:message]).to eq("You have successfully deleted Open Date #{target_open_date.date}.")
     end
+
+    it('should return a 400 if delete is unsuccessful') do
+      delete "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 500}"
+
+      error_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(error_response[:message]).to eq("Could not delete Open Date. Please try again.")
+    end
   end
 end
