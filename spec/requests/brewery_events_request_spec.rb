@@ -137,9 +137,9 @@ describe("Brewery Events API") do
 
       expect(response.status).to eq(404)
       expect(data).to have_key(:message)
-      expect(data[:message]).to eq("Event not found with ID 5000")
+      expect(data[:message]).to eq("Event ID 5000 not found with associated brewery ID #{brewery.id}")
     end
-    it('returns 400 if brewery does not exist') do
+    it('returns 404 if brewery does not exist') do
       brewery = create(:brewery)
       brewery_event = create(:brewery_event, brewery: brewery)
 
@@ -151,7 +151,7 @@ describe("Brewery Events API") do
       expect(data).to have_key(:message)
       expect(data[:message]).to eq("Brewery not found with ID 9999")
     end
-    it('returns 400 if event is not associated with brewery') do
+    it('returns 404 if event is not associated with brewery') do
       brewery = create(:brewery)
       brewery_event = create(:brewery_event)
 
@@ -159,9 +159,9 @@ describe("Brewery Events API") do
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response.status).to eq(400)
+      expect(response.status).to eq(404)
       expect(data).to have_key(:message)
-      expect(data[:message]).to eq("Event ID #{brewery_event.id} not associated with Brewery ID #{brewery.id}")
+      expect(data[:message]).to eq("Event ID #{brewery_event.id} not found with associated brewery ID #{brewery.id}")
     end
   end
 end
