@@ -74,7 +74,7 @@ describe("Truck OpenDates API") do
 
       put_response = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response.status).to eq(201)
+      expect(response.status).to eq(200)
       expect(response).to be_successful
       expect(put_response).to have_key(:data)
       expect(put_response[:data]).to have_key(:id)

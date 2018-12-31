@@ -26,7 +26,7 @@ class Api::V1::FoodTrucksController < ApplicationController
     truck = FoodTruck.find_by_id(params[:id])
     if truck
       truck.update(food_truck_params)
-      render json: FoodTruckShowSerializer.new(truck).serialized_json, status: 201
+      render json: FoodTruckShowSerializer.new(truck).serialized_json, status: 200
     else
       render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
     end
@@ -36,7 +36,7 @@ class Api::V1::FoodTrucksController < ApplicationController
     truck = FoodTruck.find_by_id(params[:id])
     if truck
       truck.destroy
-      render status: 204
+      render status: 200
     else
       render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
     end
