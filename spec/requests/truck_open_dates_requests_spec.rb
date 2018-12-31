@@ -81,6 +81,7 @@ describe("Truck OpenDates API") do
       expect(response.status).to eq(400)
       expect(error_response[:message]).to eq("Could not delete Open Date. Please try again.")
     end
+  end
       
   describe("PUT /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
     it("should edit the given open date") do
