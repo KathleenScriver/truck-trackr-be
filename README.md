@@ -308,3 +308,24 @@ The attribute of `booked?` will default to `false`. If you want to create the op
    "message": "Could not save, please try again."
  }
  ```
+ 
+ **PUT `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
+ - This endpoint will allow the user to edit the specified open date.
+ 
+ **Request Format:**
+ ```json
+{
+  "date": "Tue, 16 Apr 2019", (required)
+  "booked?": true
+}
+```
+
+**Example Response**
+ - If successful, response will return `status code: 201`.
+ 
+ - If not successful, response will return `status code: 400` with
+ ```json
+ {
+   "message": "Could not save, please try again."
+ }
+ ```
