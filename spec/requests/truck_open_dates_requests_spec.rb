@@ -3,7 +3,7 @@ require "rails_helper"
 describe("Truck OpenDates API") do
   before(:each) do
     @food_truck = create(:food_truck)
-    create_list(:open_date, 5, food_truck: @food_truck)
+    @open_dates = create_list(:open_date, 5, food_truck: @food_truck)
 
     @food_truck_2 = create(:food_truck)
     @other_open_date = create(:open_date, food_truck: @food_truck_2)
@@ -59,6 +59,20 @@ describe("Truck OpenDates API") do
 
       expect(response.status).to eq(400)
       expect(error[:message]).to eq("Could not save, please try again.")
+    end
+  end
+
+  describe('DELETE /api/v1/food_trucks/:food_truck_id/open_dates/:id') do
+    it('should delete the open_date for that truck') do
+      target_open_date = @open_dates.first
+
+      delete `/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{target_open_date.id}`
+
+      delete_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+      expect(response[:message]).to eq("You have successfully deleted Open Date #{target_open_date.date}.")
     end
   end
 end
