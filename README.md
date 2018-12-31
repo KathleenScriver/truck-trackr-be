@@ -326,6 +326,6 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  - If not successful, response will return `status code: 400` with
  ```json
  {
-   "message": "Could not save, please try again."
+   "message": "Could not update, please try again."
  }
  ```
