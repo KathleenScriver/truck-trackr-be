@@ -44,6 +44,6 @@ class Api::V1::FoodTrucksController < ApplicationController
 
   private
     def food_truck_params
-      params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website)
+      params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website, :uid)
     end
 end
