@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   include ActionController::RequestForgeryProtection
 
   protect_from_forgery with: :exception
-  before_action :set_csrf_cooke
+  before_action :set_csrf_cookie
 
   def current_user
     @current_user ||= find_user
@@ -21,7 +21,6 @@ class ApplicationController < ActionController::API
   end
 
   def set_csrf_cookie
-    require "pry"; binding.pry
     cookies["CSRF-TOKEN"] = form_authenticity_token
   end
 end
