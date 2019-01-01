@@ -143,15 +143,21 @@ describe "Food Truck API" do
     it 'user can update a truck with attributes' do
       truck = create(:food_truck)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
-      allow_any_instance_of(ApplicationController).to receive(:set_csrf_cookie).and_return(cookies["CSRF-TOKEN"] = "123abc")
+      allow_any_instance_of(ApplicationController).to receive(:set_csrf_cookie).and_return(cookies["CSRF_TOKEN"] = "123abc")
 
       payload = {
         contact_name: "Sultan Charles",
         phone: "666-666-6666"
       }
 
-      put "/api/v1/food_trucks/#{truck.id}", params: payload, headers: {"X-CSRF-Token": "123abc"}
-require "pry"; binding.pry
+      headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "X_CSRF_TOKEN": "123abc"
+      }
+
+      put "/api/v1/food_trucks/#{truck.id}", params: payload, headers: headers
+
       expect(response).to be_successful
 
       trucks_response = JSON.parse(response.body)
