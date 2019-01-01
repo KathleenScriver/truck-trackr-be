@@ -4,6 +4,7 @@ describe "Food Truck API" do
   describe 'GET food trucks index end point' do
     it 'user can get all food trucks' do
         truck_1, truck_2, truck_3 = create_list(:food_truck, 3)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck_1)
 
         get '/api/v1/food_trucks'
 
