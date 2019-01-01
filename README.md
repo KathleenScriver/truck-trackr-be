@@ -71,7 +71,8 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   "phone": "who can they call?",  (required)
   "email": "who can they email?",  (required)
   "logo_image": "WIP, ok to leave blank",
-  "website": "ok to leave this blank if not available"
+  "website": "ok to leave this blank if not available",
+  "uid": "12345" (required)
 }
 ```
 - A successful request will return `status code: 201`.
@@ -181,7 +182,8 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   "phone": "344.694.9247",  (required)
   "email": "young@champlin.biz",  (required)
   "website": "http://hosbeer.com",
-  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png",
+  "uid": "12345" (required)
  }
  ```
   
