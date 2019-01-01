@@ -22,8 +22,8 @@ module TruckTrackrApi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => '*',
-      'Access-Control-Request-Method' => "GET,POST,OPTIONS"
+      'Access-Control-Allow-Origin' => "*",
+      'Access-Control-Request-Method' => %w{GET POST PUT DELETE OPTIONS}.join(",")
     }
 
     # Settings in config/environments/* take precedence over those specified here.
