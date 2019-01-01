@@ -317,9 +317,11 @@ If the truck cannot be located, the response will include `status: 400` with `"m
 **Request Format:**
 ```json
 {
-  "date": "Tue, 16 Apr 2019"
+  "date": "Tue, 16 Apr 2019" 
 }
 ```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
 The attribute of `booked?` will default to `false`. If you want to create the open_date with `booked?` set to `true`, you can send it as an additional parameter in the request.
 ```json
 {
@@ -348,6 +350,8 @@ The attribute of `booked?` will default to `false`. If you want to create the op
   "booked?": true
 }
 ```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
 (Request can include one or both of the above listed attributes.)
 
 **Example Response**
