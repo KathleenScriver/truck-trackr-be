@@ -16,6 +16,7 @@ class Api::V1::FoodTrucksController < ApplicationController
   def create
     food_truck = FoodTruck.new(food_truck_params)
     if food_truck.save
+      session[:food_truck_id] = food_truck.id
       render json: FoodTruckShowSerializer.new(food_truck).serialized_json, status: 201
     else
       render json: {message: "Failed"}, status: 400
