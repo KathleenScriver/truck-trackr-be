@@ -83,6 +83,7 @@ describe("Brewery API") do
       expect(brewery_data[:data][:type]).to eq("brewery")
       expect(brewery_data[:data]).to have_key(:attributes)
       expect(brewery_data[:data][:attributes]).to have_key(:name)
+      expect(brewery_data[:data][:attributes]).to_not have_key(:uid)
       expect(brewery_data[:data][:attributes][:name]).to eq(payload[:name])
       expect(brewery_data[:data][:attributes]).to have_key(:address)
       expect(brewery_data[:data][:attributes][:address]).to eq(payload[:address])

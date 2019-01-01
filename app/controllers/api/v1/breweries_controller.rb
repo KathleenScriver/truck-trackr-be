@@ -44,6 +44,6 @@ class Api::V1::BreweriesController < ApplicationController
 
   private
     def brewery_params
-      params.permit(:name, :address, :contact_name, :phone, :email, :website, :logo_image)
+      params.permit(:name, :address, :contact_name, :phone, :email, :website, :logo_image, :uid)
     end
 end
