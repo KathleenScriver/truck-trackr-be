@@ -66,7 +66,8 @@ describe("Brewery API") do
         contact_name: "Elliot",
         phone: "555-555-5555",
         email: "ddefault@mockweb.com",
-        website: "http://dddefaultmockwebsite.com"
+        website: "http://dddefaultmockwebsite.com",
+        uid: "123abc"
       }
 
       post "/api/v1/breweries", params: payload
