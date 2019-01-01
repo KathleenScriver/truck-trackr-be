@@ -7,6 +7,8 @@ RSpec.describe FoodTruck, type: :model do
     it { should validate_presence_of(:contact_name) }
     it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:uid) }
+    it { should validate_uniqueness_of(:uid) }
   end
   describe "relationships" do
     it { should have_many(:food_truck_cities) }

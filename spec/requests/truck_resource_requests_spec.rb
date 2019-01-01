@@ -79,7 +79,7 @@ describe "Food Truck API" do
       expect(food_truck_data).to have_key("message")
       expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
     end
-  end    
+  end
   describe 'POST food truck show end point' do
     it 'user can get post new truck with required attributes' do
         payload = {
@@ -87,7 +87,8 @@ describe "Food Truck API" do
           food_type: "Barbecue",
           contact_name: "Sultan Charles",
           phone: "666-666-6666",
-          email: "hellonwheelss666@hotmail.com"
+          email: "hellonwheelss666@hotmail.com",
+          uid: "abc123"
         }
 
         post "/api/v1/food_trucks", params: payload
