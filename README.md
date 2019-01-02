@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/KathleenYruegas/truck-trackr-be.svg?style=svg)](https://circleci.com/gh/KathleenYruegas/truck-trackr-be)
 
-#### Table of Contents
+### Table of Contents
 [Purpose](https://github.com/KathleenYruegas/truck-trackr-be#purpose)
 
 [Core Members](https://github.com/KathleenYruegas/truck-trackr-be#core-members)
@@ -20,7 +20,7 @@
   - [`/api/v1/breweries/:brewery_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idopen_dates-endpoints)
 
 
-#### Purpose
+### Purpose
 
 This project provide the back-end support for the Truck Trackr app. This app is aimed at making it easier for Breweries and Food Trucks to coordinate their schedules. When a Brewery posts a new `brewery_event`, a Food Truck can then contact that Brewery to fill that need. A Food Truck can also create an `open_date` where they are available to provide their services for the day. 
 
@@ -32,7 +32,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 
 
-#### Core Members
+### Core Members
 
  - Abdulla Quadrat | https://github.com/abdullaqudrat
  - Freddie Levenson | https://github.com/flevenson
@@ -40,7 +40,7 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
  - Megan Haubelt | https://github.com/Haub
  
  
-#### Technologies Used
+### Technologies Used
 
 - Rails 5.2.2
 - Ruby 2.4.1
@@ -48,7 +48,7 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 - Fast_JsonAPI (https://github.com/Netflix/fast_jsonapi)
 - CircleCI
 
-#### Testing
+### Testing
 
 This API was driven by TDD and uses SimpleCov to measure test coverage. 
  * Other testing tools used:
@@ -56,7 +56,7 @@ This API was driven by TDD and uses SimpleCov to measure test coverage.
   - Shoulda-Matchers
   - Factory_bot_rails
   
-#### Cloning this repo
+### Cloning this repo
 
 ```
 git clone https://github.com/KathleenYruegas/truck-trackr-be.git
