@@ -14,6 +14,7 @@
 [Cloning this Repo](https://github.com/KathleenYruegas/truck-trackr-be#cloning-this-repo)
 
 * [API Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#api-endpoints)
+  - [Logging In/Out Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#logging-in/out-endpoints)
   - [`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
   - [`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
   - [`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
@@ -22,7 +23,7 @@
 
 ### Purpose
 
-This project provide the back-end support for the Truck Trackr app. This app is aimed at making it easier for Breweries and Food Trucks to coordinate their schedules. When a Brewery posts a new `brewery_event`, a Food Truck can then contact that Brewery to fill that need. A Food Truck can also create an `open_date` where they are available to provide their services for the day. 
+This project provide the back-end support for the Truck Trackr app. This app is aimed at making it easier for Breweries and Food Trucks to coordinate their schedules. When a Brewery posts a new `brewery_event`, a Food Truck can then contact that Brewery to fill that need. A Food Truck can also create an `open_date` where they are available to provide their services for the day.
 
 The back-end is an API that our detached front-end interacts with to access the database of Breweries and Food Trucks.
 
@@ -38,8 +39,8 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
  - Freddie Levenson | https://github.com/flevenson
  - Kat Yruegas | https://github.com/KathleenYruegas
  - Megan Haubelt | https://github.com/Haub
- 
- 
+
+
 ### Technologies Used
 
 - Rails 5.2.2
@@ -50,12 +51,12 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 
 ### Testing
 
-This API was driven by TDD and uses SimpleCov to measure test coverage. 
+This API was driven by TDD and uses SimpleCov to measure test coverage.
  * Other testing tools used:
   - RSpec
   - Shoulda-Matchers
   - Factory_bot_rails
-  
+
 ### Cloning this repo
 
 ```
@@ -64,9 +65,43 @@ bundle
 rake db:{create,migrate}
 ```
  * Additionally, you can run `rake db:seed` to get test data into your local testing environment.
- 
+
 
 ### API Endpoints
+
+#### Logging In/Out Endpoints
+
+**POST `/login`**
+
+- This endpoint will login a Food Truck or Brewery account.
+
+  **Request Format**
+
+```json
+{
+  "account_type": "food_truck",
+  "uid": "8ngng833ng393g8n"
+}
+```
+* Account Type attribute can be either `food_truck` or `brewery`.
+* Both attributes are required in the body of the request.
+
+**Response**
+- Successful response will return `status code: 201`
+- Unsuccessful response will return `status code: 404`
+
+**DELETE `/logout`**
+
+- This will logout the user. No additional information is needed in the body of request.
+
+- Successful response will return `status code: 200` with
+```json
+{
+  "message": "You have successfully logged out."
+}
+```
+- Unsuccessful response will return `status code: 404`
+
 
 #### `/api/v1/food_trucks` Endpoints
 
@@ -250,7 +285,7 @@ rake db:{create,migrate}
   "uid": "12345" (required)
  }
  ```
-  
+
  - A successful requet will return `status code: 201`.
  - An unsuccessful request will return `status code: 404` with
  ```json
@@ -258,7 +293,7 @@ rake db:{create,migrate}
    "message": "Failed"
  }
  ```
-  
+
 **PUT `/api/v1/breweries/:id`**
 
 - This endpoint will allow you to edit an existing brewery.
@@ -383,7 +418,7 @@ If the truck cannot be located, the response will include `status: 400` with `"m
 **Request Format:**
 ```json
 {
-  "date": "Tue, 16 Apr 2019" 
+  "date": "Tue, 16 Apr 2019"
 }
 ```
 *Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
@@ -398,17 +433,17 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 
 **Example Response**
  - If successful, response will return `status code: 201`.
- 
+
  - If not successful, response will return `status code: 404` with
  ```json
  {
    "message": "Could not save, please try again."
  }
  ```
- 
+
  **PUT `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
  - This endpoint will allow the user to edit the specified open date.
- 
+
  **Request Format:**
  ```json
 {
@@ -422,12 +457,12 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 
 **Example Response**
  - If successful, response will return `status code: 200`.
- 
+
  - If not successful, response will return `status code: 404` with
  ```json
  {
    "message": "Could not update, please try again."
  }
  ```
- 
+
  #### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
