@@ -168,6 +168,8 @@ describe("Brewery API") do
   describe("DELETE /breweries/:id") do
     it("deletes a selected brewery") do
       brewery = create(:brewery)
+      brewery_event_attrs = attributes_for(:brewery_event)
+      brewery.brewery_events.create(brewery_event_attrs)
 
       delete "/api/v1/breweries/#{brewery.id}"
 

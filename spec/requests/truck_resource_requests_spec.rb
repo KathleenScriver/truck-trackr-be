@@ -79,7 +79,7 @@ describe "Food Truck API" do
       expect(food_truck_data).to have_key("message")
       expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
     end
-  end    
+  end
   describe 'POST food truck show end point' do
     it 'user can get post new truck with required attributes' do
         payload = {
@@ -190,6 +190,8 @@ describe "Food Truck API" do
   describe "food truck delete api endpoint" do
     it "deletes a selected food truck" do
       truck = create(:food_truck)
+      open_date_attrs = attributes_for(:open_date)
+      truck.open_dates.create(open_date_attrs)
 
       delete "/api/v1/food_trucks/#{truck.id}"
 
