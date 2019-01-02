@@ -4,6 +4,7 @@ describe("Brewery API") do
   describe("GET /breweries") do
     it("returns a list of all breweries") do
       breweries = create_list(:brewery, 8)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(breweries[0])
 
       get '/api/v1/breweries'
 
@@ -20,6 +21,7 @@ describe("Brewery API") do
   describe("GET /breweries/:id") do
     it("returns a brewery with all its attributes") do
       brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       get "/api/v1/breweries/#{brewery.id}"
 
@@ -49,6 +51,8 @@ describe("Brewery API") do
       expect(brewery_data[:data][:attributes][:logo_image]).to eq(brewery.logo_image)
     end
     it("returns a 404 if brewery does not exist") do
+      brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       get "/api/v1/breweries/100"
 
@@ -116,6 +120,7 @@ describe("Brewery API") do
   describe("PUT /breweries/:id") do
     it("updates a brewery with all required attributes") do
       brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       payload = {
         address: "1156 Windsor St., Boulder, CO 80604",
@@ -151,6 +156,7 @@ describe("Brewery API") do
     end
     it("returns a 404 if brewery is not found") do
       brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       payload = {
         address: "1156 Windsor St., Boulder, CO 80604",
@@ -170,6 +176,8 @@ describe("Brewery API") do
   describe("DELETE /breweries/:id") do
     it("deletes a selected brewery") do
       brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
+
       brewery_event_attrs = attributes_for(:brewery_event)
       brewery.brewery_events.create(brewery_event_attrs)
 
@@ -187,6 +195,7 @@ describe("Brewery API") do
     end
     it("returns a 404 if brewery is not found") do
       brewery = create(:brewery)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       delete "/api/v1/breweries/100"
 
