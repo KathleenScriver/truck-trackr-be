@@ -5,6 +5,20 @@
 #### Table of Contents
 [Purpose](https://github.com/KathleenYruegas/truck-trackr-be#purpose)
 
+[Core Members](https://github.com/KathleenYruegas/truck-trackr-be#core-members)
+
+[Technologies Used](https://github.com/KathleenYruegas/truck-trackr-be#technologies-used)
+
+[Testing](https://github.com/KathleenYruegas/truck-trackr-be#testing)
+
+[Cloning this Repo](https://github.com/KathleenYruegas/truck-trackr-be#cloning-this-repo)
+
+*[API Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#api-endpoints)
+ -[`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
+ -[`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
+ -[`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
+ -[`/api/v1/breweries/:brewery_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idopen_dates-endpoints)
+
 
 #### Purpose
 
@@ -52,9 +66,9 @@ rake db:{create,migrate}
  * Additionally, you can run `rake db:seed` to get test data into your local testing environment.
  
 
-#### API Endpoints
+### API Endpoints
 
-### `/api/v1/food_trucks` Endpoints
+#### `/api/v1/food_trucks` Endpoints
 
 **GET `/api/v1/food_trucks`**
 
@@ -169,7 +183,7 @@ rake db:{create,migrate}
 }
 ```
 
-### `/api/v1/breweries` Endpoints
+#### `/api/v1/breweries` Endpoints
 
 **GET `/api/v1/breweries`**
 - Will return a list of all breweries in the database along with their name.
@@ -281,7 +295,7 @@ rake db:{create,migrate}
 }
 ```
 
-### `/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints
+#### `/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints
 
 **GET `/api/v1/food_trucks/:food_truck_id/open_dates`**
 
@@ -416,4 +430,4 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  }
  ```
  
- ### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
+ #### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
