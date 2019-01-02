@@ -14,7 +14,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(:food_truck_id) || session.delete(:brewery_id)
-    render json: { message: "You have successfully logged out." }, status: 200
+    if (session[:food_truck_id] || session[:brewery_id])
+      session.delete(:food_truck_id) || session.delete(:brewery_id)
+      render json: { message: "You have successfully logged out." }, status: 200
+    else
+      render status: 404
+    end
   end
 end
