@@ -2,7 +2,7 @@ class BreweryEventNotifierMailer < ApplicationMailer
 
     def self.broadcast_setup(all_food_truck_emails, brewery_event)
         all_food_truck_emails.each do |email|
-            broadcast(email, brewery_event)
+            broadcast(email, brewery_event).deliver_now
         end
     end
 
