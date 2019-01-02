@@ -1,4 +1,6 @@
 class Api::V1::BreweryEventsController < ApplicationController
+  before_action :authorize
+
   def index
     brewery = Brewery.find_by_id(params[:brewery_id])
     if brewery
