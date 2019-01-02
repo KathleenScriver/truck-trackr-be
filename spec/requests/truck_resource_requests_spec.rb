@@ -206,6 +206,8 @@ describe "Food Truck API" do
     it "deletes a selected food truck" do
       truck = create(:food_truck)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
+      open_date_attrs = attributes_for(:open_date)
+      truck.open_dates.create(open_date_attrs)
 
       delete "/api/v1/food_trucks/#{truck.id}"
 

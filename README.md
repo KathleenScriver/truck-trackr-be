@@ -71,7 +71,8 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   "phone": "who can they call?",  (required)
   "email": "who can they email?",  (required)
   "logo_image": "WIP, ok to leave blank",
-  "website": "ok to leave this blank if not available"
+  "website": "ok to leave this blank if not available",
+  "uid": "12345" (required)
 }
 ```
 - A successful request will return `status code: 201`.
@@ -181,7 +182,8 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
   "phone": "344.694.9247",  (required)
   "email": "young@champlin.biz",  (required)
   "website": "http://hosbeer.com",
-  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png",
+  "uid": "12345" (required)
  }
  ```
   
@@ -317,9 +319,11 @@ If the truck cannot be located, the response will include `status: 400` with `"m
 **Request Format:**
 ```json
 {
-  "date": "Tue, 16 Apr 2019"
+  "date": "Tue, 16 Apr 2019" 
 }
 ```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
 The attribute of `booked?` will default to `false`. If you want to create the open_date with `booked?` set to `true`, you can send it as an additional parameter in the request.
 ```json
 {
@@ -348,6 +352,8 @@ The attribute of `booked?` will default to `false`. If you want to create the op
   "booked?": true
 }
 ```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
 (Request can include one or both of the above listed attributes.)
 
 **Example Response**
