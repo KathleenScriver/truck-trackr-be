@@ -34,7 +34,7 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 
 ### Core Members
 
- - Abdulla Quadrat | https://github.com/abdullaqudrat
+ - Abdulla Qudrat | https://github.com/abdullaqudrat
  - Freddie Levenson | https://github.com/flevenson
  - Kat Yruegas | https://github.com/KathleenYruegas
  - Megan Haubelt | https://github.com/Haub
@@ -429,5 +429,17 @@ The attribute of `booked?` will default to `false`. If you want to create the op
    "message": "Could not update, please try again."
  }
  ```
+ 
+ **DELETE `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
+
+- This endpoint will delete the specified open date for a specified food truck from the database.
+
+- A successful request will return `status code: 204`.
+- An unsuccessful request will return `status code: 404` with
+```json
+{
+  "message": "Could not delete Open Date. Please try again."
+}
+```
  
  #### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
