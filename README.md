@@ -18,7 +18,7 @@
   - [`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
   - [`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
   - [`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
-  - [`/api/v1/breweries/:brewery_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idopen_dates-endpoints)
+  - [`/api/v1/breweries/:brewery_id/brewery_events` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idbrewery_events-endpoints)
 
 
 ### Purpose
@@ -35,7 +35,7 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 
 ### Core Members
 
- - Abdulla Quadrat | https://github.com/abdullaqudrat
+ - Abdulla Qudrat | https://github.com/abdullaqudrat
  - Freddie Levenson | https://github.com/flevenson
  - Kat Yruegas | https://github.com/KathleenYruegas
  - Megan Haubelt | https://github.com/Haub
@@ -256,7 +256,7 @@ rake db:{create,migrate}
       "type": "brewery",
       "attributes": {
         "name": "Heads Of State",
-        "address": "Risotto with Seafood",
+        "address": "123 Main St, Denver, CO 80203",
         "contact_name": "Pamala",
         "phone": "344.694.9247",
         "email": "young@champlin.biz",
@@ -464,5 +464,128 @@ The attribute of `booked?` will default to `false`. If you want to create the op
    "message": "Could not update, please try again."
  }
  ```
+ 
+ **DELETE `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
 
- #### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
+- This endpoint will delete the specified open date for a specified food truck from the database.
+
+- A successful request will return `status code: 204`.
+- An unsuccessful request will return `status code: 404` with
+```json
+{
+  "message": "Could not delete Open Date. Please try again."
+}
+```
+ 
+ #### `/api/v1/breweries/:brewery_id/brewery_events` Endpoints
+ 
+ **GET `/api/v1/breweries/:brewery_id/brewery_events`**
+
+Lists all listed brewery events for a given brewery.
+
+**Example Response**
+```json
+{
+   "data": {
+        "id": "1",
+        "type": "brewery",
+        "attributes": {
+          "name": "Heads Of State",
+          "address": "Risotto with Seafood",
+          "contact_name": "Pamala",
+          "phone": "344.694.9247",
+          "email": "young@champlin.biz",
+          "website": "http://hosbeer.com",
+          "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+        },
+        "relationships": {
+            ...
+        }
+    },
+    "included": [
+        {
+            "id": "1",
+            "type": "brewery_event",
+            "attributes": {
+                "id": 1,
+                "date": "2019-02-24",
+                "truck_booked?": true
+            }
+        },
+        {
+            "id": "3",
+            "type": "brewery_event",
+            "attributes": {
+                "id": 3,
+                "date": "2019-04-07",
+                "truck_booked?": false
+            }
+        }
+      ]
+}
+```
+
+**Error Response**
+
+If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
+If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
+
+**GET `/api/v1/breweries/:brewery_id/brewery_events/:id`**
+
+- This endpoint will return the specified brewery event for the brewery.
+
+**Example Response**
+```json
+{
+    "data": {
+        "id": "2",
+        "type": "brewery_event",
+        "attributes": {
+            "id": 2,
+            "date": "2019-01-01",
+            "truck_booked?": false
+        }
+    }
+}
+```
+
+**Error Response**
+
+- If either the brewery or the brewery event do not exist, the response will include `status code: 404` with
+```json
+{
+  "message": "Could not locate resource"
+}
+```
+
+**POST `/api/v1/breweries/:brewery_id/brewery_events`**
+
+-This will create a new brewery event object for the brewery specified in the path.
+
+**Request Format:**
+```json
+{
+  "date": "Tue, 16 Apr 2019" 
+}
+```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
+The attribute of `truck_booked?` will default to `false`. If you want to create the open_date with `truck_booked?` set to `true`, you can send it as an additional parameter in the request.
+```json
+{
+  "date": "Tue, 16 Apr 2019",
+  "truck_booked?": true
+}
+```
+
+**Example Response**
+ - If successful, response will return `status code: 201`.
+ 
+ - If not successful, response will return `status code: 404` with
+ ```json
+ {
+   "message": "Could not save, please try again."
+ }
+ ```
+
+
