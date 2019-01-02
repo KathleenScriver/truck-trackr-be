@@ -14,7 +14,7 @@
 [Cloning this Repo](https://github.com/KathleenYruegas/truck-trackr-be#cloning-this-repo)
 
 * [API Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#api-endpoints)
-  - [Logging In/Out Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#logging-in/out-endpoints)
+  - [Logging In/Out Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#logging-inout-endpoints)
   - [`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
   - [`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
   - [`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
