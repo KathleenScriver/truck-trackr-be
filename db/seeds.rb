@@ -26,6 +26,7 @@ end
 end
 
 food_truck_1 = FoodTruck.first
+food_truck_1.uid = "123abc"
 
 5.times do
   food_truck_1.open_dates.create(
@@ -35,6 +36,7 @@ food_truck_1 = FoodTruck.first
 end
 
 brewery_1 = Brewery.first
+brewery_1.uid = "456def"
 
 5.times do
   brewery_1.brewery_events.create(
