@@ -29,10 +29,6 @@ describe("Login Logout API") do
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(logout_response[:message]).to eq("You have successfully logged out.")
-
-      get "/api/v1/food_trucks"
-
-      expect(response.status).to eq(404)
     end
   end
 end

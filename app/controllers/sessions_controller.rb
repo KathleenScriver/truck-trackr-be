@@ -15,6 +15,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:food_truck_id) || session.delete(:brewery_id)
-    render status: 200
+    render json: { message: "You have successfully logged out." }, status: 200
   end
 end
