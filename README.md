@@ -221,7 +221,7 @@ rake db:{create,migrate}
       "type": "brewery",
       "attributes": {
         "name": "Heads Of State",
-        "address": "Risotto with Seafood",
+        "address": "123 Main St, Denver, CO 80203",
         "contact_name": "Pamala",
         "phone": "344.694.9247",
         "email": "young@champlin.biz",
@@ -494,3 +494,32 @@ Lists all listed brewery events for a given brewery.
 
 If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
 If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
+
+**GET `/api/v1/breweries/:brewery_id/brewery_events/:id`**
+
+- This endpoint will return the specified brewery event for the brewery.
+
+**Example Response**
+```json
+{
+    "data": {
+        "id": "2",
+        "type": "brewery_event",
+        "attributes": {
+            "id": 2,
+            "date": "2019-01-01",
+            "truck_booked?": false
+        }
+    }
+}
+```
+
+**Error Response**
+
+- If either the brewery or the brewery event do not exist, the response will include `status code: 404` with
+```json
+{
+  "message": "Could not locate resource"
+}
+```
+
