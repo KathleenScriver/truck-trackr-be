@@ -2,10 +2,59 @@
 
 [![CircleCI](https://circleci.com/gh/KathleenYruegas/truck-trackr-be.svg?style=svg)](https://circleci.com/gh/KathleenYruegas/truck-trackr-be)
 
+#### Table of Contents
+[Purpose](https://github.com/KathleenYruegas/truck-trackr-be#purpose)
+
+
+#### Purpose
+
+This project provide the back-end support for the Truck Trackr app. This app is aimed at making it easier for Breweries and Food Trucks to coordinate their schedules. When a Brewery posts a new `brewery_event`, a Food Truck can then contact that Brewery to fill that need. A Food Truck can also create an `open_date` where they are available to provide their services for the day. 
+
+The back-end is an API that our detached front-end interacts with to access the database of Breweries and Food Trucks.
+
 Visit deployed api at https://truck-trackr-api.herokuapp.com/
-(This is also the base URL for all api endpoints.)
+(This is the base URL for all api endpoints.)
+
+Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
+
+
+#### Core Members
+
+ - Abdulla Quadrat | https://github.com/abdullaqudrat
+ - Freddie Levenson | https://github.com/flevenson
+ - Kat Yruegas | https://github.com/KathleenYruegas
+ - Megan Haubelt | https://github.com/Haub
+ 
+ 
+#### Technologies Used
+
+- Rails 5.2.2
+- Ruby 2.4.1
+- PostgreSQL Database
+- Fast_JsonAPI (https://github.com/Netflix/fast_jsonapi)
+- CircleCI
+
+#### Testing
+
+This API was driven by TDD and uses SimpleCov to measure test coverage. 
+ * Other testing tools used:
+  - RSpec
+  - Shoulda-Matchers
+  - Factory_bot_rails
+  
+#### Cloning this repo
+
+```
+git clone https://github.com/KathleenYruegas/truck-trackr-be.git
+bundle
+rake db:{create,migrate}
+```
+ * Additionally, you can run `rake db:seed` to get test data into your local testing environment.
+ 
 
 #### API Endpoints
+
+### `/api/v1/food_trucks` Endpoints
 
 **GET `/api/v1/food_trucks`**
 
@@ -120,6 +169,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
+### `/api/v1/breweries` Endpoints
 
 **GET `/api/v1/breweries`**
 - Will return a list of all breweries in the database along with their name.
@@ -231,7 +281,7 @@ Visit deployed api at https://truck-trackr-api.herokuapp.com/
 }
 ```
 
-
+### `/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints
 
 **GET `/api/v1/food_trucks/:food_truck_id/open_dates`**
 
@@ -365,3 +415,5 @@ The attribute of `booked?` will default to `false`. If you want to create the op
    "message": "Could not update, please try again."
  }
  ```
+ 
+ ### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
