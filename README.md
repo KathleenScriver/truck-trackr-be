@@ -17,7 +17,7 @@
   - [`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
   - [`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
   - [`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
-  - [`/api/v1/breweries/:brewery_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idopen_dates-endpoints)
+  - [`/api/v1/breweries/:brewery_id/brewery_events` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweriesbrewery_idbrewery_events-endpoints)
 
 
 ### Purpose
@@ -442,4 +442,55 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 }
 ```
  
- #### `/api/v1/breweries/:brewery_id/open_dates` Endpoints
+ #### `/api/v1/breweries/:brewery_id/brewery_events` Endpoints
+ 
+ **GET `/api/v1/breweries/:brewery_id/brewery_events`**
+
+Lists all listed brewery events for a given brewery.
+
+**Example Response**
+```json
+{
+   "data": {
+        "id": "1",
+        "type": "brewery",
+        "attributes": {
+          "name": "Heads Of State",
+          "address": "Risotto with Seafood",
+          "contact_name": "Pamala",
+          "phone": "344.694.9247",
+          "email": "young@champlin.biz",
+          "website": "http://hosbeer.com",
+          "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+        },
+        "relationships": {
+            ...
+        }
+    },
+    "included": [
+        {
+            "id": "1",
+            "type": "brewery_event",
+            "attributes": {
+                "id": 1,
+                "date": "2019-02-24",
+                "truck_booked?": true
+            }
+        },
+        {
+            "id": "3",
+            "type": "brewery_event",
+            "attributes": {
+                "id": 3,
+                "date": "2019-04-07",
+                "truck_booked?": false
+            }
+        }
+      ]
+}
+```
+
+**Error Response**
+
+If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
+If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
