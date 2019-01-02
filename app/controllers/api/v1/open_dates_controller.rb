@@ -1,4 +1,6 @@
 class Api::V1::OpenDatesController < ApplicationController
+  before_action :authorize
+
   def index
     food_truck = FoodTruck.find_by_id(params[:food_truck_id])
     if food_truck

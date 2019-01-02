@@ -4,6 +4,7 @@ describe("Truck OpenDates API") do
   before(:each) do
     @food_truck = create(:food_truck)
     @open_dates = create_list(:open_date, 5, food_truck: @food_truck)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@food_truck)
 
     @food_truck_2 = create(:food_truck)
     @other_open_date = create(:open_date, food_truck: @food_truck_2)
@@ -122,7 +123,7 @@ describe("Truck OpenDates API") do
       expect(error_response[:message]).to eq("Could not delete Open Date. Please try again.")
     end
   end
-      
+
   describe("PUT /api/v1/food_trucks/:food_truck_id/open_dates/:id") do
     it("should edit the given open date") do
       open_date = @food_truck.open_dates.first
