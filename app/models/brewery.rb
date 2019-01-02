@@ -5,4 +5,5 @@ class Brewery < ApplicationRecord
                         :contact_name,
                         :phone,
                         :email
+  validates :uid, presence: true, uniqueness: true
 end

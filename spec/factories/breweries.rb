@@ -7,5 +7,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     website { Faker::Internet.url }
     logo_image { Faker::Company.logo }
+    uid { Faker::Internet.password }
   end
 end

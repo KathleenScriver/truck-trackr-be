@@ -1,4 +1,6 @@
 class Api::V1::FoodTrucksController < ApplicationController
+  before_action :authorize, except: :create
+
   def index
     food_trucks = FoodTruck.all
     render json: FoodTruckIndexSerializer.new(food_trucks).serialized_json
@@ -14,8 +16,9 @@ class Api::V1::FoodTrucksController < ApplicationController
   end
 
   def create
-    food_truck = FoodTruck.new(food_truck_params)
+    food_truck = FoodTruck.create(food_truck_params)
     if food_truck.save
+      session[:food_truck_id] = food_truck.id
       render json: FoodTruckShowSerializer.new(food_truck).serialized_json, status: 201
     else
       render json: {message: "Failed"}, status: 400
@@ -44,6 +47,6 @@ class Api::V1::FoodTrucksController < ApplicationController
 
   private
     def food_truck_params
-      params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website)
+      params.permit(:name, :food_type, :contact_name, :phone, :email, :logo_image, :website, :uid)
     end
 end

@@ -4,6 +4,7 @@ describe "Food Truck API" do
   describe 'GET food trucks index end point' do
     it 'user can get all food trucks' do
         truck_1, truck_2, truck_3 = create_list(:food_truck, 3)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck_1)
 
         get '/api/v1/food_trucks'
 
@@ -29,6 +30,7 @@ describe "Food Truck API" do
         truck = create(:food_truck)
         city = create(:city)
         create(:food_truck_city, food_truck: truck, city: city)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
         get "/api/v1/food_trucks/#{truck.id}"
 
@@ -71,6 +73,8 @@ describe "Food Truck API" do
         expect(trucks_response['data']['relationships']['cities']['data'][0]['type']).to eq('city')
     end
     it "returns a 404 if food_truck does not exist" do
+      truck = create(:food_truck)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       get "/api/v1/food_trucks/10000"
 
@@ -87,7 +91,8 @@ describe "Food Truck API" do
           food_type: "Barbecue",
           contact_name: "Sultan Charles",
           phone: "666-666-6666",
-          email: "hellonwheelss666@hotmail.com"
+          email: "hellonwheelss666@hotmail.com",
+          uid: "123abc"
         }
 
         post "/api/v1/food_trucks", params: payload
@@ -105,6 +110,7 @@ describe "Food Truck API" do
         expect(trucks_response['data']).to have_key('id')
         expect(trucks_response['data']['id']).to_not eq(nil)
         expect(trucks_response['data']).to have_key('attributes')
+        expect(trucks_response['data']['attributes']).to_not have_key('uid')
         expect(trucks_response['data']['attributes']).to have_key('name')
         expect(trucks_response['data']['attributes']['name']).to eq(payload[:name])
         expect(trucks_response['data']['attributes']).to have_key('food_type')
@@ -136,6 +142,7 @@ describe "Food Truck API" do
   describe 'PUT food truck end point' do
     it 'user can update a truck with attributes' do
       truck = create(:food_truck)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       payload = {
         contact_name: "Sultan Charles",
@@ -170,6 +177,7 @@ describe "Food Truck API" do
     end
     it "returns a 404 if food truck is not found" do
       truck = create(:food_truck)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       payload = {
         food_type: "Barbecue",
@@ -178,7 +186,7 @@ describe "Food Truck API" do
         email: "hellonwheelss666@hotmail.com"
       }
 
-      put "/api/v1/food_trucks/10000"
+      put "/api/v1/food_trucks/10000", params: payload
 
       food_truck_data = JSON.parse(response.body)
 
@@ -190,6 +198,7 @@ describe "Food Truck API" do
   describe "food truck delete api endpoint" do
     it "deletes a selected food truck" do
       truck = create(:food_truck)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
       open_date_attrs = attributes_for(:open_date)
       truck.open_dates.create(open_date_attrs)
 
@@ -207,6 +216,7 @@ describe "Food Truck API" do
     end
     it("returns a 404 if truck is not found") do
       truck = create(:food_truck)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       delete "/api/v1/food_trucks/100"
 

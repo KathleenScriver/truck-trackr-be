@@ -1,4 +1,6 @@
 class Api::V1::BreweriesController < ApplicationController
+  before_action :authorize, except: :create
+  
   def index
     breweries = Brewery.all
     render json: BreweryIndexSerializer.new(breweries).serialized_json
@@ -44,6 +46,6 @@ class Api::V1::BreweriesController < ApplicationController
 
   private
     def brewery_params
-      params.permit(:name, :address, :contact_name, :phone, :email, :website, :logo_image)
+      params.permit(:name, :address, :contact_name, :phone, :email, :website, :logo_image, :uid)
     end
 end
