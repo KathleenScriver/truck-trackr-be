@@ -523,3 +523,33 @@ If the event cannot be located, the response will include `status: 404` with `"m
 }
 ```
 
+**POST `/api/v1/breweries/:brewery_id/brewery_events`**
+
+-This will create a new brewery event object for the brewery specified in the path.
+
+**Request Format:**
+```json
+{
+  "date": "Tue, 16 Apr 2019" 
+}
+```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
+The attribute of `truck_booked?` will default to `false`. If you want to create the open_date with `truck_booked?` set to `true`, you can send it as an additional parameter in the request.
+```json
+{
+  "date": "Tue, 16 Apr 2019",
+  "truck_booked?": true
+}
+```
+
+**Example Response**
+ - If successful, response will return `status code: 201`.
+ 
+ - If not successful, response will return `status code: 404` with
+ ```json
+ {
+   "message": "Could not save, please try again."
+ }
+ ```
+
