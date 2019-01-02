@@ -527,8 +527,7 @@ Lists all listed brewery events for a given brewery.
 
 **Error Response**
 
-If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
-If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
+If the brewery cannot be located, the response will include `status: 400` with `"message": "Sorry, that brewery does not exist, please try again."`
 
 **GET `/api/v1/breweries/:brewery_id/brewery_events/:id`**
 
@@ -588,4 +587,29 @@ The attribute of `truck_booked?` will default to `false`. If you want to create 
  }
  ```
 
+**PUT `/api/v1/breweries/:brewery_id/brewery_events/:id`**
+ - This endpoint will allow the user to edit the specified brewery event of a specified brewery.
 
+ **Request Format:**
+ ```json
+{
+  "date": "Tue, 16 Apr 2019",
+  "truck_booked?": true
+}
+```
+*Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
+
+(Request can include one or both of the above listed attributes.)
+
+**Example Response**
+ - If successful, response will return `status code: 200`.
+ - If not successful, response will return If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
+ - If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
+
+ **DELETE `/api/v1/breweries/:brewery_id/brewery_events/:id`**
+
+- This endpoint will delete the specified brewery event for a specified brewery from the database.
+
+- If successful, response will return `status code: 200`.
+ - If not successful, response will return If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
+ - If the event cannot be located, the response will include `status: 404` with `"message": "Event ID -- not found with associated brewery ID --"`
