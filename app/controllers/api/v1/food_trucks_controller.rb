@@ -1,6 +1,4 @@
 class Api::V1::FoodTrucksController < ApplicationController
-  before_action :authorize, except: :create
-
   def index
     food_trucks = FoodTruck.all
     render json: FoodTruckIndexSerializer.new(food_trucks).serialized_json
@@ -20,7 +18,6 @@ class Api::V1::FoodTrucksController < ApplicationController
   def create
     food_truck = FoodTruck.create(food_truck_params)
     if food_truck.save
-      session[:food_truck_id] = food_truck.id
       render json: FoodTruckShowSerializer.new(food_truck).serialized_json, status: 201
     else
       render json: {message: "Failed"}, status: 400
@@ -28,17 +25,17 @@ class Api::V1::FoodTrucksController < ApplicationController
   end
 
   def update
-    truck = FoodTruck.find_by_id(params[:id])
+    truck = FoodTruck.find_by(uid: params[:uid])
     if truck
       truck.update(food_truck_params)
       render json: FoodTruckShowSerializer.new(truck).serialized_json, status: 200
     else
-      render json: {message: "Food Truck not found with ID #{params[:id]}"}, status: 404
+      render json: {message: "Food Truck not found."}, status: 404
     end
   end
 
   def destroy
-    truck = FoodTruck.find_by_id(params[:id])
+    truck = FoodTruck.find_by(uid: params[:uid])
     if truck
       truck.destroy
       render status: 204
