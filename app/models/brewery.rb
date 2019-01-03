@@ -6,4 +6,6 @@ class Brewery < ApplicationRecord
                         :phone,
                         :email
   validates :uid, presence: true, uniqueness: true
+
+  mount_uploader :logo_image, LogoUploader
 end
