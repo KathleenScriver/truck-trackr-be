@@ -1,5 +1,4 @@
 class Api::V1::BreweriesController < ApplicationController
-  before_action :authorize, except: :create
   
   def index
     breweries = Brewery.all
@@ -25,22 +24,22 @@ class Api::V1::BreweriesController < ApplicationController
   end
 
   def update
-    brewery = Brewery.find_by_id(params[:id])
+    brewery = Brewery.find_by_uid(params[:uid])
     if brewery
       brewery.update(brewery_params)
       render json: BreweryShowSerializer.new(brewery).serialized_json, status: 201
     else
-      render json: {message: "Brewery not found with ID #{params[:id]}"}, status: 404
+      render json: {message: "Brewery not found"}, status: 404
     end
   end
 
   def destroy
-    brewery = Brewery.find_by_id(params[:id])
+    brewery = Brewery.find_by_uid(params[:uid])
     if brewery
       brewery.destroy
       render status: 204
     else
-      render json: {message: "Brewery not found with ID #{params[:id]}"}, status: 404
+      render json: {message: "Brewery not found"}, status: 404
     end
   end
 

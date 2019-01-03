@@ -4,7 +4,6 @@ describe("Brewery API") do
   describe("GET /breweries") do
     it("returns a list of all breweries") do
       breweries = create_list(:brewery, 8)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(breweries[0])
 
       get '/api/v1/breweries'
 
@@ -21,7 +20,6 @@ describe("Brewery API") do
   describe("GET /breweries/:id") do
     it("returns a brewery with all its attributes") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       get "/api/v1/breweries/#{brewery.id}"
 
@@ -52,7 +50,6 @@ describe("Brewery API") do
     end
     it("returns a 404 if brewery does not exist") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       get "/api/v1/breweries/100"
 
@@ -120,13 +117,13 @@ describe("Brewery API") do
   describe("PUT /breweries/:id") do
     it("updates a brewery with all required attributes") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       payload = {
         address: "1156 Windsor St., Boulder, CO 80604",
         contact_name: "Elliot",
         phone: "555-555-5555",
-        email: "updated@mockweb.com"
+        email: "updated@mockweb.com",
+        uid: brewery.uid
       }
 
       put "/api/v1/breweries/#{brewery.id}", params: payload
@@ -156,13 +153,13 @@ describe("Brewery API") do
     end
     it("returns a 404 if brewery is not found") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       payload = {
         address: "1156 Windsor St., Boulder, CO 80604",
         contact_name: "Elliot",
         phone: "555-555-5555",
-        email: "updated@mockweb.com"
+        email: "updated@mockweb.com",
+        uid: "100"
       }
 
       put "/api/v1/breweries/100", params: payload
@@ -170,18 +167,17 @@ describe("Brewery API") do
       brewery_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(404)
       expect(brewery_data).to have_key(:message)
-      expect(brewery_data[:message]).to eq("Brewery not found with ID 100")
+      expect(brewery_data[:message]).to eq("Brewery not found")
     end
   end
   describe("DELETE /breweries/:id") do
     it("deletes a selected brewery") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       brewery_event_attrs = attributes_for(:brewery_event)
       brewery.brewery_events.create(brewery_event_attrs)
 
-      delete "/api/v1/breweries/#{brewery.id}"
+      delete "/api/v1/breweries/#{brewery.id}", params: {uid: brewery.uid}
 
       expect(response).to be_successful
       expect(response.status).to eq(204)
@@ -195,14 +191,13 @@ describe("Brewery API") do
     end
     it("returns a 404 if brewery is not found") do
       brewery = create(:brewery)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(brewery)
 
       delete "/api/v1/breweries/100"
 
       brewery_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(404)
       expect(brewery_data).to have_key(:message)
-      expect(brewery_data[:message]).to eq("Brewery not found with ID 100")
+      expect(brewery_data[:message]).to eq("Brewery not found")
     end
   end
 end
