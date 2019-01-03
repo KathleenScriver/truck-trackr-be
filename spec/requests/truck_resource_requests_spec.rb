@@ -71,6 +71,14 @@ describe "Food Truck API" do
         expect(trucks_response['data']['relationships']['cities']['data'][0]['id']).to eq(city.id.to_s)
         expect(trucks_response['data']['relationships']['cities']['data'][0]).to have_key('type')
         expect(trucks_response['data']['relationships']['cities']['data'][0]['type']).to eq('city')
+        expect(trucks_response['included'].length).to eq(1)
+        expect(trucks_response['included'][0]).to have_key('id')
+        expect(trucks_response['included'][0]['id']).to eq(city.id.to_s)
+        expect(trucks_response['included'][0]).to have_key('type')
+        expect(trucks_response['included'][0]['type']).to eq('city')
+        expect(trucks_response['included'][0]).to have_key('attributes')
+        expect(trucks_response['included'][0]['attributes']).to have_key('name')
+        expect(trucks_response['included'][0]['attributes']['name']).to eq(city.name)
     end
     it "returns a 404 if food_truck does not exist" do
       truck = create(:food_truck)
