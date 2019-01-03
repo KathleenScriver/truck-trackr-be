@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
     if params[:account_type] == "food_truck"
       food_truck = FoodTruck.find_by(uid: params[:uid])
       session[:food_truck_id] = food_truck.id
-      render status: 201
+      render json: FoodTruckShowSerializer.new(food_truck).serialized_json, status: 201
     elsif params[:account_type] == "brewery"
       brewery = Brewery.find_by(uid: params[:uid])
       session[:brewery_id] = brewery.id
-      render status: 201
+      render json: BreweryShowSerializer.new(brewery).serialized_json, status: 201
     else
       render status: 404
     end
