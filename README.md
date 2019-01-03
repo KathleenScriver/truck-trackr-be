@@ -1,6 +1,7 @@
 # Truck Trackr API
 
 [![CircleCI](https://circleci.com/gh/KathleenYruegas/truck-trackr-be.svg?style=svg)](https://circleci.com/gh/KathleenYruegas/truck-trackr-be)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 
 ### Table of Contents
 [Purpose](https://github.com/KathleenYruegas/truck-trackr-be#purpose)
