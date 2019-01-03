@@ -29,15 +29,10 @@ module TruckTrackrApi
         origins ['localhost:3000', 'https://trucktrackr.herokuapp.com/']
         resource '*',
           headers: :any,
-          methods: [:get, :post, :put, :delete, :options, :head]
+          methods: [:get, :post, :put, :delete, :options, :head],
+          credentials: true
       end
     end
-
-    config.action_dispatch.default_headers = {
-    'Access-Control-Allow-Origin' => 'http://my-web-service-consumer-site.com',
-    'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(","),
-    'Access-Control-Allow-Credentials' => true
-  }
 
 
     # Settings in config/environments/* take precedence over those specified here.
