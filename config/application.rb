@@ -33,11 +33,6 @@ module TruckTrackrApi
       end
     end
 
-    config.action_dispatch.default_headers = {
-      'Access-Control-Allow-Origin' => 'https://truck-trackr-api.herokuapp.com',
-      'Access-Control-Request-Method' => %w{GET POST PUT DELETE OPTIONS}.join(",")
-    }
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
