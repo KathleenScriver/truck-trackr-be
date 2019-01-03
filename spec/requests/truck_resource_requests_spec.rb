@@ -4,7 +4,6 @@ describe "Food Truck API" do
   describe 'GET food trucks index end point' do
     it 'user can get all food trucks' do
         truck_1, truck_2, truck_3 = create_list(:food_truck, 3)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck_1)
 
         get '/api/v1/food_trucks'
 
@@ -30,7 +29,6 @@ describe "Food Truck API" do
         truck = create(:food_truck)
         city = create(:city)
         create(:food_truck_city, food_truck: truck, city: city)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
         get "/api/v1/food_trucks/#{truck.id}"
 
@@ -82,7 +80,6 @@ describe "Food Truck API" do
     end
     it "returns a 404 if food_truck does not exist" do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       get "/api/v1/food_trucks/10000"
 
@@ -150,11 +147,11 @@ describe "Food Truck API" do
   describe 'PUT food truck end point' do
     it 'user can update a truck with attributes' do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       payload = {
         contact_name: "Sultan Charles",
-        phone: "666-666-6666"
+        phone: "666-666-6666",
+        uid: truck.uid
       }
 
       put "/api/v1/food_trucks/#{truck.id}", params: payload
@@ -185,13 +182,13 @@ describe "Food Truck API" do
     end
     it "returns a 404 if food truck is not found" do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       payload = {
         food_type: "Barbecue",
         contact_name: "Sultan Charles",
         phone: "666-666-6666",
-        email: "hellonwheelss666@hotmail.com"
+        email: "hellonwheelss666@hotmail.com",
+        uid: "123jjf"
       }
 
       put "/api/v1/food_trucks/10000", params: payload
@@ -200,17 +197,18 @@ describe "Food Truck API" do
 
       expect(response.status).to eq(404)
       expect(food_truck_data).to have_key("message")
-      expect(food_truck_data["message"]).to eq("Food Truck not found with ID 10000")
+      expect(food_truck_data["message"]).to eq("Food Truck not found.")
     end
   end
   describe "food truck delete api endpoint" do
     it "deletes a selected food truck" do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
-      open_date_attrs = attributes_for(:open_date)
-      truck.open_dates.create(open_date_attrs)
 
-      delete "/api/v1/food_trucks/#{truck.id}"
+      payload = {
+        "uid": truck.uid
+      }
+
+      delete "/api/v1/food_trucks/#{truck.id}", params: payload
 
       expect(response).to be_successful
       expect(response.status).to eq(204)
@@ -224,9 +222,12 @@ describe "Food Truck API" do
     end
     it("returns a 404 if truck is not found") do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
-      delete "/api/v1/food_trucks/100"
+      payload = {
+        "uid": "63hfj38"
+      }
+
+      delete "/api/v1/food_trucks/100", params: payload
 
       brewery_data = JSON.parse(response.body)
       expect(response.status).to eq(404)

@@ -4,7 +4,6 @@ describe("Truck OpenDates API") do
   before(:each) do
     @food_truck = create(:food_truck)
     @open_dates = create_list(:open_date, 5, food_truck: @food_truck)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@food_truck)
 
     @food_truck_2 = create(:food_truck)
     @other_open_date = create(:open_date, food_truck: @food_truck_2)
@@ -83,18 +82,18 @@ describe("Truck OpenDates API") do
 
   describe("POST /api/v1/food_truck/:food_truck_id/open_dates") do
     it('should create new open_date') do
-      new_open_date_attributes = attributes_for(:open_date)
+      payload = attributes_for(:open_date, uid: @food_truck.uid)
 
-      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: new_open_date_attributes
+      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: payload
 
       expect(response).to be_successful
       expect(response.status).to eq(201)
       expect(@food_truck.open_dates.count).to eq(6)
-      expect(@food_truck.open_dates.last[:date]).to eq(new_open_date_attributes[:date])
+      expect(@food_truck.open_dates.last[:date]).to eq(payload[:date])
     end
 
     it('should return 400 if params not valid') do
-      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: {booked?: true}
+      post "/api/v1/food_trucks/#{@food_truck.id}/open_dates", params: {booked?: true, "uid": "4hg83hgh"}
 
       error = JSON.parse(response.body, symbolize_names: true)
 
@@ -107,7 +106,11 @@ describe("Truck OpenDates API") do
     it('should delete the open_date for that truck') do
       target_open_date = @open_dates.first
 
-      delete "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{target_open_date.id}"
+      payload = {
+        "uid": @food_truck.uid
+      }
+
+      delete "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{target_open_date.id}", params: payload
 
       expect(response).to be_successful
       expect(response.status).to eq(204)
@@ -115,7 +118,11 @@ describe("Truck OpenDates API") do
     end
 
     it('should return a 400 if delete is unsuccessful') do
-      delete "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 500}"
+      payload = {
+        "uid": @food_truck.uid
+      }
+
+      delete "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 500}", params: payload
 
       error_response = JSON.parse(response.body, symbolize_names: true)
 
@@ -132,7 +139,7 @@ describe("Truck OpenDates API") do
       original_booked = open_date[:booked?]
 
       put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{open_date.id}",
-        params: { date: "Mon, 7 Jan 2019", booked?: !original_booked }
+        params: { date: "Mon, 7 Jan 2019", booked?: !original_booked, "uid": @food_truck.uid }
 
       put_response = JSON.parse(response.body, symbolize_names: true)
 
@@ -151,7 +158,7 @@ describe("Truck OpenDates API") do
 
     it('returns 400 if can not find truck or open_date') do
       put "/api/v1/food_trucks/#{@food_truck.id}/open_dates/#{OpenDate.last.id + 10}",
-        params: { booked?: true }
+        params: { booked?: true, uid: "83nfh8g" }
 
       put_response = JSON.parse(response.body, symbolize_names: true)
 
