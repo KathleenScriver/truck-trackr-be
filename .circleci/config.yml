@@ -27,7 +27,7 @@ jobs:
          - POSTGRES_USER: ubuntu
          - POSTGRES_DB: truck_trackr_api_development
          - POSTGRES_PASSWORD: ""
-
+       - image: redis
     steps:
       - checkout
       # this restores cache if it exists in the same state
