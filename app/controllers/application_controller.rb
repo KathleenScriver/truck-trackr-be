@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
-  # include ActionController::RequestForgeryProtection
-  #
-  # protect_from_forgery unless: -> {request.format.json?}
-  # before_action :set_csrf_cookie
+  include ActionController::RequestForgeryProtection
+
+  protect_from_forgery unless: -> {request.format.json?}
+  before_action :set_csrf_cookie
 
   def current_user
     @current_user ||= find_user
