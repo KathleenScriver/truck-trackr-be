@@ -14,3 +14,4 @@
 #       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end
+Rails.application.config.action_controller.forgery_protection_origin_check = false
