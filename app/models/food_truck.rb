@@ -5,7 +5,10 @@ class FoodTruck < ApplicationRecord
 	has_many :cities, through: :food_truck_cities
 	has_many :open_dates, dependent: :destroy
 
+	mount_uploader :logo_image, LogoUploader
+
 	def self.all_emails
 		pluck(:email)
 	end
+
 end
