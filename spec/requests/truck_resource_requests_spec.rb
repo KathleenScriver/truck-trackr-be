@@ -4,7 +4,6 @@ describe "Food Truck API" do
   describe 'GET food trucks index end point' do
     it 'user can get all food trucks' do
         truck_1, truck_2, truck_3 = create_list(:food_truck, 3)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck_1)
 
         get '/api/v1/food_trucks'
 
@@ -30,7 +29,6 @@ describe "Food Truck API" do
         truck = create(:food_truck)
         city = create(:city)
         create(:food_truck_city, food_truck: truck, city: city)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
         get "/api/v1/food_trucks/#{truck.id}"
 
@@ -82,7 +80,6 @@ describe "Food Truck API" do
     end
     it "returns a 404 if food_truck does not exist" do
       truck = create(:food_truck)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(truck)
 
       get "/api/v1/food_trucks/10000"
 
