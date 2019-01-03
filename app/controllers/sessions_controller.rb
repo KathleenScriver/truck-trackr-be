@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     elsif params[:account_type] == "brewery"
       brewery = Brewery.find_by(uid: params[:uid])
       session[:brewery_id] = brewery.id
-      render status: 201
+      render json: BreweryShowSerializer.new(brewery).serialized_json, status: 201
     else
       render status: 404
     end
