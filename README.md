@@ -48,6 +48,9 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 - PostgreSQL Database
 - Fast_JsonAPI (https://github.com/Netflix/fast_jsonapi)
 - CircleCI
+- Deployed on Heroku
+- Sidekiq & Redis (visit our Sidekiq Dashboard at https://truck-trackr-api.herokuapp.com/sidekiq
+- SendGrid 
 
 ### Testing
 
@@ -56,6 +59,7 @@ This API was driven by TDD and uses SimpleCov to measure test coverage.
   - RSpec
   - Shoulda-Matchers
   - Factory_bot_rails
+  - Mailcatcher
 
 ### Cloning this repo
 
