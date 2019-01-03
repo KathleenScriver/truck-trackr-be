@@ -1,5 +1,4 @@
 class Api::V1::BreweryEventsController < ApplicationController
-
   def index
     brewery = Brewery.find_by_id(params[:brewery_id])
     if brewery
