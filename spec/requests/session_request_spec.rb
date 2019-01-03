@@ -45,5 +45,16 @@ describe("Login API") do
       expect(logged_in[:data][:attributes]).to have_key(:name)
       expect(logged_in[:data][:attributes][:name]).to eq(brewery.name)
     end
+
+    it("should return 404 if account isn't matched") do
+      payload = {
+        "account_type": "food_truck",
+        "uid": "8f38hg389gh3"
+      }
+
+      post "/login", params: payload
+
+      expect(response.status).to eq(404)
+    end
   end
-end 
+end
