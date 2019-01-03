@@ -6,7 +6,7 @@ FactoryBot.define do
     phone { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
     website { Faker::Internet.url }
-    logo_image { Faker::Company.logo }
+    logo_image { File.new(File.join(Rails.root, 'public/test.jpeg')) }
     uid { Faker::Internet.password }
   end
 end

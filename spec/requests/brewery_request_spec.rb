@@ -48,7 +48,7 @@ describe("Brewery API") do
       expect(brewery_data[:data][:attributes]).to have_key(:website)
       expect(brewery_data[:data][:attributes][:website]).to eq(brewery.website)
       expect(brewery_data[:data][:attributes]).to have_key(:logo_image)
-      expect(brewery_data[:data][:attributes][:logo_image]).to eq(brewery.logo_image)
+      expect(brewery_data[:data][:attributes][:logo_image]).to have_key(:url)
     end
     it("returns a 404 if brewery does not exist") do
       brewery = create(:brewery)

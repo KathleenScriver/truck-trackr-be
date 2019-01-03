@@ -58,7 +58,7 @@ describe "Food Truck API" do
         expect(trucks_response['data']['attributes']).to have_key('website')
         expect(trucks_response['data']['attributes']['website']).to eq(truck.website)
         expect(trucks_response['data']['attributes']).to have_key('logo_image')
-        expect(trucks_response['data']['attributes']['logo_image']).to eq(truck.logo_image)
+        expect(trucks_response['data']['attributes']['logo_image']).to have_key('url')
         expect(trucks_response['data']).to have_key('relationships')
         expect(trucks_response['data']['relationships']).to be_a(Hash)
         expect(trucks_response['data']['relationships']).to have_key('cities')

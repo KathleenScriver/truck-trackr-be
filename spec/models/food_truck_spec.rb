@@ -9,6 +9,12 @@ RSpec.describe FoodTruck, type: :model do
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:uid) }
     it { should validate_uniqueness_of(:uid) }
+    it 'should upload an image when provided' do
+      food_truck = create(:food_truck, logo_image: File.new(File.join(Rails.root, 'public/test.jpeg')))
+      
+      expect(food_truck.logo_image).to be_a(LogoUploader)
+      expect(food_truck.logo_image_identifier).to eq('test.jpeg')
+    end
   end
   describe "relationships" do
     it { should have_many(:food_truck_cities) }
