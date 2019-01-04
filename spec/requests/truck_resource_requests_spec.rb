@@ -29,6 +29,7 @@ describe "Food Truck API" do
         truck = create(:food_truck)
         city = create(:city)
         create(:food_truck_city, food_truck: truck, city: city)
+        create(:open_date, food_truck: truck)
 
         get "/api/v1/food_trucks/#{truck.id}"
 
@@ -69,7 +70,7 @@ describe "Food Truck API" do
         expect(trucks_response['data']['relationships']['cities']['data'][0]['id']).to eq(city.id.to_s)
         expect(trucks_response['data']['relationships']['cities']['data'][0]).to have_key('type')
         expect(trucks_response['data']['relationships']['cities']['data'][0]['type']).to eq('city')
-        expect(trucks_response['included'].length).to eq(1)
+        expect(trucks_response['included'].length).to eq(2)
         expect(trucks_response['included'][0]).to have_key('id')
         expect(trucks_response['included'][0]['id']).to eq(city.id.to_s)
         expect(trucks_response['included'][0]).to have_key('type')
