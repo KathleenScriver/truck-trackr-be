@@ -15,7 +15,7 @@
 [Cloning this Repo](https://github.com/KathleenYruegas/truck-trackr-be#cloning-this-repo)
 
 * [API Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#api-endpoints)
-  - [Logging In/Out Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#logging-inout-endpoints)
+  - [Logging In Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#logging-in-endpoints)
   - [`/api/v1/food_trucks` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucks-endpoints)
   - [`/api/v1/breweries` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1breweries-endpoints)
   - [`/api/v1/food_trucks/:food_truck_id/open_dates` Endpoints](https://github.com/KathleenYruegas/truck-trackr-be#apiv1food_trucksfood_truck_idopen_dates-endpoints)
@@ -74,7 +74,7 @@ rake db:{create,migrate}
 
 ### API Endpoints
 
-#### Logging In/Out Endpoints
+#### Logging In Endpoints
 
 **POST `/login`**
 
@@ -93,18 +93,6 @@ rake db:{create,migrate}
 
 **Response**
 - Successful response will return `status code: 201`
-- Unsuccessful response will return `status code: 404`
-
-**DELETE `/logout`**
-
-- This will logout the user. No additional information is needed in the body of request.
-
-- Successful response will return `status code: 200` with
-```json
-{
-  "message": "You have successfully logged out."
-}
-```
 - Unsuccessful response will return `status code: 404`
 
 
@@ -199,7 +187,8 @@ rake db:{create,migrate}
   "phone": "who can they call?",  (required)
   "email": "who can they email?",  (required)
   "logo_image": "WIP, ok to leave blank",
-  "website": "ok to leave this blank if not available"
+  "website": "ok to leave this blank if not available",
+  "uid": "food_truck_uid" (required)
 }
 ```
 
@@ -214,6 +203,13 @@ rake db:{create,migrate}
 **DELETE `/api/v1/food_trucks/:id`**
 
 - This endpoint will delete the specified food_truck.
+
+**Request Format**
+```json
+{
+  "uid": "food_truck_uid" (required)
+}
+```
 
 - If successful, will return `status code: 204`.
 - If unsuccessful, will return `status code: 404` with
@@ -312,7 +308,8 @@ rake db:{create,migrate}
   "phone": "344.694.9247",  (required)
   "email": "young@champlin.biz",  (required)
   "website": "http://hosbeer.com",
-  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png"
+  "logo_image": "https://pigment.github.io/fake-logos/logos/medium/color/11.png",
+  "uid": "brewery_uid" (required)
 }
 ```
 - A successful requet will return `status code: 200`.
@@ -326,6 +323,12 @@ rake db:{create,migrate}
 **DELETE `/api/v1/breweries/:id`**
 
 - This endpoint will delete the specified brewery from the database.
+
+**Expected Request Format**
+```json
+{
+  "uid": "brewery_uid" (required)
+}
 
 - A successful request will return `status code: 204`.
 - An unsuccessful request will return `status code: 404` with
@@ -423,7 +426,8 @@ If the truck cannot be located, the response will include `status: 400` with `"m
 **Request Format:**
 ```json
 {
-  "date": "Tue, 16 Apr 2019"
+  "date": "Tue, 16 Apr 2019",
+  "uid": "food_truck_uid" (required)
 }
 ```
 *Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
@@ -432,7 +436,8 @@ The attribute of `booked?` will default to `false`. If you want to create the op
 ```json
 {
   "date": "Tue, 16 Apr 2019",
-  "booked?": true
+  "booked?": true,
+  "uid": "food_truck_uid" (required)
 }
 ```
 
@@ -453,7 +458,8 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  ```json
 {
   "date": "Tue, 16 Apr 2019",
-  "booked?": true
+  "booked?": true,
+  "uid": "food_truck_uid" (required)
 }
 ```
 *Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
@@ -473,6 +479,13 @@ The attribute of `booked?` will default to `false`. If you want to create the op
  **DELETE `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
 
 - This endpoint will delete the specified open date for a specified food truck from the database.
+
+**Expected Request Format**
+```json
+{
+  "uid": "food_truck_uid" (required)
+}
+```
 
 - A successful request will return `status code: 204`.
 - An unsuccessful request will return `status code: 404` with
@@ -569,7 +582,8 @@ If the brewery cannot be located, the response will include `status: 400` with `
 **Request Format:**
 ```json
 {
-  "date": "Tue, 16 Apr 2019" 
+  "date": "Tue, 16 Apr 2019",
+  "uid": "brewery_uid" (required)
 }
 ```
 *Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
@@ -599,7 +613,8 @@ The attribute of `truck_booked?` will default to `false`. If you want to create 
  ```json
 {
   "date": "Tue, 16 Apr 2019",
-  "truck_booked?": true
+  "truck_booked?": true,
+  "uid": "brewery_uid" (required)
 }
 ```
 *Note: The date format does not need the day of the week. Can also be in `YY-MM-DD` format or `YYYY-MM-DD`.
@@ -614,6 +629,13 @@ The attribute of `truck_booked?` will default to `false`. If you want to create 
  **DELETE `/api/v1/breweries/:brewery_id/brewery_events/:id`**
 
 - This endpoint will delete the specified brewery event for a specified brewery from the database.
+
+**Expected Request Format**
+```json
+{
+  "uid": "brewery_uid" (required)
+}
+```
 
 - If successful, response will return `status code: 200`.
  - If not successful, response will return If the brewery cannot be located, the response will include `status: 404` with `"message": "Brewery not found with ID --"`
