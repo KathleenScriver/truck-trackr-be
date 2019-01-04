@@ -47,11 +47,12 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 - Rails 5.2.2
 - Ruby 2.4.1
 - PostgreSQL Database
-- Fast_JsonAPI (https://github.com/Netflix/fast_jsonapi)
-- CircleCI
-- Deployed on Heroku
-- Sidekiq & Redis (visit our Sidekiq Dashboard at https://truck-trackr-api.herokuapp.com/sidekiq
-- SendGrid 
+- Fast_JsonAPI (for Serializers)
+- CircleCI (for Continuous Integration)
+- Heroku (for deployment)
+- Sidekiq & Redis (visit our Sidekiq Dashboard at https://truck-trackr-api.herokuapp.com/sidekiq)
+- SendGrid (for sending emails)
+- CarrierWave (for image/file upload)
 
 ### Testing
 
