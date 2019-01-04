@@ -20,6 +20,7 @@ describe("Brewery API") do
   describe("GET /breweries/:id") do
     it("returns a brewery with all its attributes") do
       brewery = create(:brewery)
+      create_list(:brewery_event, 5, brewery: brewery)
 
       get "/api/v1/breweries/#{brewery.id}"
 
