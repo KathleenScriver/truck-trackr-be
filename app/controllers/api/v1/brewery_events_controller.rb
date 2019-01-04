@@ -24,7 +24,7 @@ class Api::V1::BreweryEventsController < ApplicationController
     brewery = Brewery.find_by_uid(params[:uid])
     brewery_event = brewery.brewery_events.create(brewery_event_params) unless brewery.nil?
     all_food_truck_emails = FoodTruck.all_emails
-    if brewery_event.save
+    if brewery && brewery_event.save
       EmailSenderJob.perform_later(all_food_truck_emails, brewery_event)
       render status: 201
     else
