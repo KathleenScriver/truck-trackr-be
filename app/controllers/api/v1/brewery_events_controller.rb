@@ -25,7 +25,7 @@ class Api::V1::BreweryEventsController < ApplicationController
     brewery_event = brewery.brewery_events.create(brewery_event_params)
     all_food_truck_emails = FoodTruck.all_emails
     if brewery_event.save
-      EmailSenderJob.perform_later(all_food_truck_emails, brewery_event)
+      # EmailSenderJob.perform_later(all_food_truck_emails, brewery_event)
       render status: 201
     else
       render json: {message: "Could not save, please try again."}, status: 400
