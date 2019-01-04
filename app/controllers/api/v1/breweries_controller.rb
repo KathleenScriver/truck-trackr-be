@@ -7,7 +7,9 @@ class Api::V1::BreweriesController < ApplicationController
   def show
     brewery = Brewery.find_by_id(params[:id])
     if brewery
-      render json: BreweryShowSerializer.new(brewery).serialized_json
+      options = {}
+      options[:include] = [:brewery_events]
+      render json: BreweryShowSerializer.new(brewery, options).serialized_json
     else
       render json: {message: "Brewery not found with ID #{params[:id]}"}, status: 404
     end
