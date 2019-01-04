@@ -56,7 +56,8 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 
 ### Testing
 
-This API was driven by TDD and uses SimpleCov to measure test coverage.
+This API was driven by TDD and uses SimpleCov to measure test coverage. (90% as of 1/3/19)
+
  * Other testing tools used:
   - RSpec
   - Shoulda-Matchers
