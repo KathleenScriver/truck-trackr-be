@@ -51,7 +51,8 @@ Visit the front-end repo at https://github.com/Haub/truck-trackr-fe
 - CircleCI
 - Deployed on Heroku
 - Sidekiq & Redis (visit our Sidekiq Dashboard at https://truck-trackr-api.herokuapp.com/sidekiq
-- SendGrid 
+- SendGrid
+- NewRelic (measures web transaction time)
 
 ### Testing
 
@@ -475,7 +476,7 @@ The attribute of `booked?` will default to `false`. If you want to create the op
    "message": "Could not update, please try again."
  }
  ```
- 
+
  **DELETE `/api/v1/food_trucks/:food_truck_id/open_dates/:id`**
 
 - This endpoint will delete the specified open date for a specified food truck from the database.
@@ -494,9 +495,9 @@ The attribute of `booked?` will default to `false`. If you want to create the op
   "message": "Could not delete Open Date. Please try again."
 }
 ```
- 
+
  #### `/api/v1/breweries/:brewery_id/brewery_events` Endpoints
- 
+
  **GET `/api/v1/breweries/:brewery_id/brewery_events`**
 
 Lists all listed brewery events for a given brewery.
@@ -598,7 +599,7 @@ The attribute of `truck_booked?` will default to `false`. If you want to create 
 
 **Example Response**
  - If successful, response will return `status code: 201`.
- 
+
  - If not successful, response will return `status code: 404` with
  ```json
  {
